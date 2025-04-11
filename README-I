@@ -13,8 +13,8 @@
 12. sh build_odbc.bash         // compile the sample code
 13. cd ..
 14. chmod -R 755 project_cpp
-13. Open:  http://www.csce.uark.edu/~MYUSERNAME/project_cpp/hello.php in a web browser
-14. Open:  http://www.csce.uark.edu/~MYUSERNAME/project_cpp/odbc_insert_item.php in a web browser
+13. Open:  http://www.csce.uark.edu/~MYUSERNAME/NWA-Restaurants/hello.php in a web browser
+14. Open:  http://www.csce.uark.edu/~MYUSERNAME/NWA-Restaurants/odbc_insert_item.php in a web browser
 
 
 build_odbc.bash
