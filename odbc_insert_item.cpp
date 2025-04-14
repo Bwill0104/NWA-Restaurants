@@ -23,35 +23,37 @@ string SchemaName = "bryanw"; // Change to your username
    builder.append("<br><br><br> ITEM table before:" + myDB.query(query1) +"<br>");
  
    // Parse input string to get restaurant Name and Type and  City
-   string name;
-   string supplier_id;
-   string quantity;
-   string unit_price;
+    string rest_id;
+    string name;
+    string city;
+    string address;
+    string rating;
 
    // Read command line arguments
    // First arg, arg[0] is the name of the program
    // Next args are the parameters
-   name = argv[1];
-   supplier_id = argv[2];
-   quantity = argv[3];
-   unit_price = argv[4];
+   rest_id = argv[1];
+   name = argv[2];
+   city = argv[3];
+   address = argv[4];
+   rating = argv[5];
 
    // Get the next id
-   string q = "select IFNULL(max(ID), 0) as max_id from ITEM";
+   string q = "select IFNULL(max(ID), 0) as max_id from Restaurants";
    sql::ResultSet *result = myDB.rawQuery(q);
    int next_id = 1;
    if (result->next()) // get first row of result set
       next_id += result->getInt("max_id");
 
    // Insert the new restaurant
-   string input = "'" + to_string(next_id) + "','" + name + "','" + supplier_id + "','" + quantity + "','" + unit_price + "'";
+   string input = "'" + to_string(next_id) + "','" + rest_id + "','" + name + "','" + city + "','" + address + "','" + rating + "'";
 
    // DEBUG:
    // printf("%s", input.c_str());
-   myDB.insert("ITEM", input);    // insert new restaurant
+   myDB.insert("Restaurants", input);    // insert new restaurant
  
    //For debugging purposes: Show the database after insert
-   builder.append("<br><br><br> Table ITEM after:" + myDB.query(query1));
+   builder.append("<br><br><br> Table Restaurants after:" + myDB.query(query1));
    cout << builder; 
        
    myDB.disConnect();//disconect Database

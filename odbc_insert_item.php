@@ -37,10 +37,11 @@
 </div>
 
 <form action="odbc_insert_item.php" method="post">
+    Restaraunt ID: <input type="text" name="rest_id"><br>
     Name: <input type="text" name="name"><br>
-    Supplier id: <input type="text" name="supplier_id"><br>
-    Quantity: <input type="text" name="quantity"><br>
-    Unit Price: <input type="text" name="unit_price"><br>
+    City: <input type="text" name="city"><br>
+    Address: <input type="text" name="address"><br>
+    Rating: <input type="text" name="rating"><br>
     <input name="submit" type="submit" >
 </form>
 <br><br>
@@ -52,12 +53,13 @@
 if (isset($_POST['submit'])) 
 {
     // replace ' ' with '\ ' in the strings so they are treated as single command line args
+    $rest_id = escapeshellarg($_POST[rest_id]);
     $name = escapeshellarg($_POST[name]);
-    $supplier_id = escapeshellarg($_POST[supplier_id]);
-    $quantity = escapeshellarg($_POST[quantity]);
-    $unit_price = escapeshellarg($_POST[unit_price]);
+    $city = escapeshellarg($_POST[city]);
+    $address = escapeshellarg($_POST[address]);
+    $rating = escapeshellarg($_POST[rating]);
 
-    $command = '/home/bryanw/public_html/project_cpp/odbc_insert_item.exe ' . $name . ' ' . $supplier_id . ' ' . $quantity. ' ' . $unit_price;
+    $command = '/home/bryanw/public_html/project_cpp/odbc_insert_item.exe ' . $rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
 
     echo '<p>' . 'command: ' . $command . '<p>';
     // remove dangerous characters from command to protect web server
