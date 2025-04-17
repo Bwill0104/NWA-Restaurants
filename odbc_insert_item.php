@@ -1,113 +1,378 @@
-<html>
+<?php
+$type = $_GET['type'] ?? '';
+?>
 
- 
-<style>
+<html>
+<head>
+  <style>
     body {
         /* background-color: #ffb766 */
-        background-image: url('restaraunt.jpg');
+        background-image: url('restauant.jpg');
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: fixed;
         background-position: center;
+        align-content: ccenter
         
     }
 
-.top{
-  color: white;
-  text-align: center
-}
-.content {
-      margin: auto;
-      max-width: 200px;
-      scroll-behavior: smooth;
-  }
+    .top{
+      color: white;
+      text-align: center
+    }
 
-.menu-box {
-  /* margin-bottom: 300px; */
-}
+    .content {
+          margin: auto;
+          width: 50%;
+          scroll-behavior: smooth;
+    }
 
-.button {
-  background-color: #555555; /* Green */
-  border: none;
-  color: white;
-  padding: 8px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-}
-.menu {
-  background-color: white;
-  color: black;
-  border: 2px solid #555555;
-}
+    .button {
+      background-color: #555555; /* Green */
+      border: none;
+      color: white;
+      padding: 8px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      transition-duration: 0.4s;
+      cursor: pointer;
+    }
 
-.menu:hover {
-  background-color: #555555;
-  color: white;
-}
-
-.form {
-  background-color: #555555;
-  display: "none";
-}
-</style>
+    <?php if ($type === 'restaurant'): ?>
+          .restaurant {
+          /* background-color: #555555; */
+          display: block;
+        }
+          .hours {
+          display: none;
+        }
+        .menu {
+          display: none;
+        }
+        .remove{
+          display: none;
+        }
+    <?php elseif ($type === 'hours'): ?>
+          .restaurant {
+          display: none;
+        }
+          .hours {
+          /* background-color: #fcd995; */
+          display: block;
+        }
+        .menu {
+          display: none;
+        }
+        .remove{
+          display: none;
+        }
+    <?php elseif ($type === 'menu'): ?>
+          .restaurant {
+          display: none;
+        }
+          .hours {
+          display: none;
+        }
+        .menu {
+          /* background-color: #555555; */
+          display: block;
+        }
+        .remove{
+          display: none;
+        }
+    <?php elseif ($type === 'remove'): ?>
+        .restaurant {
+        display: none;
+      }
+        .hours {
+        display: none;
+      }
+      .menu {
+        /* background-color: #555555; */
+        display: none;
+      }
+      .remove{
+        display: block;
+      }
+    <?php endif; ?>
+  </style>
+</head>
 <body>
 
 
-    <div class="top">
-      <h1>NWA Restaraunts</h1>
-    </div>
   <div class="content">
-    <div class="menu-box">
-      <button class="button menu" type="button" >Add a restaraunt</button>
-      <button class="button menu" type="button">Add restaraunt hours</button>
-      <button class="button menu" type="button">Add a menu</button>
-      <br>
-      <button class="button menu" type="button">Query hours</button>
-      <button class="button menu" type="button">Query menu options</button>
-      <button class="button menu" type="button">Find restaraunts by city</button>
-      <button class="button menu" type="button">Find restaraunts by ratings</button>
-      <button class="button menu" type="button">Remove a restaraunt</button>
+    <div class="restaurant">
+        <h1>Add a restaurant</h1>
+        <form action="odbc_insert_item.php?type=restaurant" method="post">
+        <?php $test = 'restaurant'; ?>
+            Restaurant ID: <input type="text" name="rest_id"><br><br>
+            Name: <input type="text" name="name"><br><br>
+            City: <input type="text" name="city"><br><br>
+            Address: <input type="text" name="address"><br><br>
+            Rating: <input type="text" name="rating"><br><br>
+            <input name="submitRest" type="submit" >
+        </form>
     </div>
-<br><br>
-    <div class="form">
-      <form action="odbc_insert_item.php" method="post">
-          Restaraunt ID: <input type="text" name="rest_id"><br>
-          Name: <input type="text" name="name"><br>
-          City: <input type="text" name="city"><br>
-          Address: <input type="text" name="address"><br>
-          Rating: <input type="text" name="rating"><br>
-          <input name="submit" type="submit" >
-      </form>
+
+    <div class="hours">
+        <h1>Add hours</h1>
+        <form action="odbc_insert_item.php?type=hours" method="post">
+            Restaurant ID: <input type="text" name="rest_id"><br><br>
+            Days: 
+            <input type="checkbox" id="M" name="days[]" value="M">
+            <label for="M"> M</label>
+            <input type="checkbox" id="T" name="days[]" value="T">
+            <label for="T"> T</label>
+            <input type="checkbox" id="W" name="days[]" value="W">
+            <label for="W"> W</label>
+            <input type="checkbox" id="Th" name="days[]" value="Th">
+            <label for="Th"> Th</label>
+            <input type="checkbox" id="F" name="days[]" value="F">
+            <label for="F"> F</label>
+            <input type="checkbox" id="S" name="days[]" value="S">
+            <label for="S"> S</label>
+            <input type="checkbox" id="Su" name="days[]" value="Su">
+            <label for="Su"> S</label><br><br>
+
+            Open for Breakfast: 
+            <input type="radio" id="yes" name="openBreak" value="yes">
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="openBreak" value="no">
+            <label for="no">No</label><br><br>
+                              
+            Open for Lunch: 
+            <input type="radio" id="yes" name="openLunch" value="yes">
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="openLunch" value="no">
+            <label for="no">No</label><br><br>
+
+            Open for Dinner: 
+            <input type="radio" id="yes" name="openDinner" value="yes">
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="openDinner" value="no">
+            <label for="no">No</label><br><br>
+
+
+            <input name="submitHours" type="submit" >
+        </form>
     </div>
-    <br><br>
-</div>
+
+    <div class="menu">
+        <h1>Add a menu</h1>
+        <form action="odbc_insert_item.php?type=menu" method="post">
+            Restaurant ID: <input type="text" name="rest_id"><br><br>
+            Cuisine Type: <input type="text" name="cuisineType"><br><br>
+            Price range: 
+            <input type="radio" id="low" name="priceRange" value="low">
+            <label for="yes">Low</label>
+            <input type="radio" id="med" name="priceRange" value="med">
+            <label for="no">Med</label>
+            <input type="radio" id="high" name="priceRange" value="high">
+            <label for="no">High</label><br><br>
+
+            Is vegetaian: 
+            <input type="radio" id="yes" name="isVegetarian" value="yes">
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="isVegetarian" value="no">
+            <label for="no">No</label><br><br>
+
+            Is gluten free: 
+            <input type="radio" id="yes" name="isGlutenFree" value="yes">
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="isGlutenFree" value="no">
+            <label for="no">No</label><br><br>
+
+
+            Is vegan: 
+            <input type="radio" id="yes" name="isVegan" value="yes">
+            <label for="yes">Yes</label>
+            <input type="radio" id="no" name="isVegan" value="no">
+            <label for="no">No</label><br><br>
+            <input name="submitMenu" type="submit" >
+        </form>
+    </div>
+
+    <div class="remove">
+        <h1>Remove a restaurant</h1>
+        <form action="odbc_insert_item.php?type=remove" method="post">
+            Restaurant ID: <input type="text" name="rest_id"><br>
+            Name: <input type="text" name="name"><br>
+            <input name="remove" type="submit" >
+        </form>
+    </div>
+    <button class="button back" type="button" onclick="window.location.href='home.php';" >Back</button>
+  </div>
+
 </body>
 </html>
 
 <?php
 
-if (isset($_POST['submit'])) 
+// ADD RESTAURANT
+if (isset($_POST['submitRest'])) 
 {
+   if ($type === 'restaurant')
     // replace ' ' with '\ ' in the strings so they are treated as single command line args
+    $query = escapeshellarg("restaurant");
     $rest_id = escapeshellarg($_POST[rest_id]);
     $name = escapeshellarg($_POST[name]);
     $city = escapeshellarg($_POST[city]);
     $address = escapeshellarg($_POST[address]);
     $rating = escapeshellarg($_POST[rating]);
 
-    $command = '/home/bryanw/public_html/project_cpp/odbc_insert_item.exe ' . $rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
 
-    echo '<p>' . 'command: ' . $command . '<p>';
-    // remove dangerous characters from command to protect web server
-    $command = escapeshellcmd($command);
- 
-    // run odbc_insert_item.exe
-    system($command);           
+    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+    system('chmod o+x odbc_insert_item.exe');
+    system('chmod 755 odbc_insert_item.exe');
+
+    // Run the command
+    $output = system($command, $retVal);
+    
+    // Display results
+    echo "Return code: $retVal<br>";
+    echo "Output: $output<br>";
+
+
+         
+}
+
+// ADD HOURS
+else if (isset($_POST['submitHours'])) 
+{
+    # THE RESTAURANT HAS TO ALREADY BE IN THE RESTAURANT TABLE TO ADD ITS HOURS
+    // replace ' ' with '\ ' in the strings so they are treated as single command line args
+    $query = escapeshellarg("hours");
+    $rest_id = escapeshellarg($_POST[rest_id]);
+    $days = escapeshellarg($_POST[days]);
+    $openBreak = escapeshellarg($_POST[openBreak]);
+    $openLunch = escapeshellarg($_POST[openLunch]);
+    $openDinner = escapeshellarg($_POST[openDinner]);
+
+    // DAY OPTIONS
+    if (!empty($_POST['days'])) {
+      $selectedDays = $_POST['days']; // this is an array
+
+      // You can also implode them into a single string if needed
+      $daysString = implode(",", $selectedDays);
+      echo "All selected days: $daysString";
+      } else {
+          echo "No days selected.";
+      }
+
+    // DOES IT HAVE BREAKFAST
+    if (isset($_POST['openBreak'])) {
+        $isBreakfast = $_POST['openBreak'];
+        echo "Breakfast selected: " . htmlspecialchars($isBreakfast);
+      } else {
+          echo "No breakfast option selected.";
+      }
+
+    // DOES IT HAVE LUNCH
+    if (isset($_POST['openLunch'])) {
+      $isLunch = $_POST['openLunch'];
+      echo "Lunch selected: " . htmlspecialchars($isLunch);
+      } else {
+          echo "No lunch option selected.";
+      }
+
+    // DOES IT HAVE DINNER
+    if (isset($_POST['openDinner'])) {
+      $isDinner = $_POST['openDinner'];
+      echo "Dinner selected: " . htmlspecialchars($isDinner);
+      } else {
+          echo "No dinner option selected.";
+      }
+
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $daysString . ' ' . $isBreakfast. ' ' . $isLunch. ' ' .$isDinner;
+   
+
+    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+    system('chmod o+x odbc_insert_item.exe');
+    system('chmod 755 odbc_insert_item.exe');
+
+    // Run the command
+    $output = system($command, $retVal); 
+    
+    // For debugging 
+    echo "Return code: $retVal<br>";
+    echo "Output: $output<br>";
+}
+
+// ADD MENU
+else if (isset($_POST['submitMenu'])) 
+{
+    // replace ' ' with '\ ' in the strings so they are treated as single command line args
+    $query = escapeshellarg("menu");
+    $rest_id = escapeshellarg($_POST[rest_id]);
+    $cuisineType = escapeshellarg($_POST[cuisineType]);
+    $priceRange = escapeshellarg($_POST[priceRange]);
+    $isVegetarian = escapeshellarg($_POST[isVegetarian]);
+    $isGlutenFree = escapeshellarg($_POST[isGlutenFree]);
+    $isVegan = escapeshellarg($_POST[isVegan]);
+
+    // VEGAN
+    if (isset($_POST['isVegan'])) {
+      $isVegan = $_POST['isVegan'];
+      echo "Vegan selected: " . htmlspecialchars($isVegan);
+      } else {
+          echo "No dinner option selected.";
+      }
+    // VEGETARIAN
+    if (isset($_POST['isVegetarian'])) {
+      $isVegetarian = $_POST['isVegetarian'];
+      echo "Vegetarian selected: " . htmlspecialchars($isVegetarian);
+      } else {
+          echo "No dinner option selected.";
+      }
+    // GLUTEN FREE
+    if (isset($_POST['isGlutenFree'])) {
+      $isGlutenFree = $_POST['isGlutenFree'];
+      echo "Gluten free selected: " . htmlspecialchars($isGlutenFree);
+      } else {
+          echo "No dinner option selected.";
+      }
+    // PRICE RANGE
+    if (isset($_POST['priceRange'])) {
+      $priceRange = $_POST['priceRange'];
+      echo "Vegan selected: " . htmlspecialchars($priceRange);
+      } else {
+          echo "No dinner option selected.";
+      }
+
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $cuisineType . ' ' . $priceRange. ' ' .$isVegetarian. ' ' . $isGlutenFree. ' ' . $isVegan;
+
+    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+
+    // Run the command
+    $output = system($command, $retVal);
+
+    // For debugging 
+    echo "Return code: $retVal<br>";
+    echo "Output: $output<br>";
+}
+
+// REMOVE RESTAURANT
+else if (isset($_POST['remove'])) 
+{
+    // replace ' ' with '\ ' in the strings so they are treated as single command line args
+    $query = escapeshellarg("remove");
+    $rest_id = escapeshellarg($_POST[rest_id]);
+    $name = escapeshellarg($_POST[name]);
+
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $name;
+
+    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+
+    // Run the command
+    $output = system($command, $retVal);    
+
+    // For debugging 
+    echo "Return code: $retVal<br>";
+    echo "Output: $output<br>";
 }
 ?>
 

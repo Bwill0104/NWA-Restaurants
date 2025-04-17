@@ -151,6 +151,15 @@ string query = "INSERT into " + table + " values (" + values + ")";
    statement->executeUpdate(query);
 }
 
+void odbc_db::remove(string table, string col, string values) 
+{
+   string query = "DELETE FROM " + table + " WHERE " + col + " = '" + values + "'";
+   
+   cout << "QUERY: " << query << endl;
+
+   statement->executeUpdate(query);
+}
+
 // Remove all records and fill them with values for testing
 // Assumes that the tables are already created
 // Assumes that connection to database is already made

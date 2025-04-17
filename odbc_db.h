@@ -49,6 +49,9 @@ class odbc_db
       // Insert into any table, any values from data passed in as String parameters
       void insert(string table, string values);
 
+      // remove from any table, any values from data passed in as String parameters
+      void remove(string table, string col, string values);
+
       // Remove all records and fill them with values for testing
       // Assumes that the tables are already created
       // Assumes that connection to database is already made

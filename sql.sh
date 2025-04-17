@@ -3,7 +3,7 @@ use bryanw;
 show tables;
 
 DROP TABLE IF EXISTS Menu;
-DROP TABLE IF EXISTS Times;
+DROP TABLE IF EXISTS Hours;
 DROP TABLE IF EXISTS Restaurants;
 
 
@@ -26,21 +26,21 @@ SELECT * FROM Restaurants;
 
 
 
-CREATE TABLE Times (
+CREATE TABLE Hours (
 restaurantID int NOT NULL,
 day CHAR(15) NOT NULL,
-openBreak BOOLEAN NOT NULL,
-openLunch BOOLEAN NOT NULL,
-openDinner BOOLEAN,
+openBreak ENUM('yes', 'no') NOT NULL,
+openLunch ENUM('yes', 'no') NOT NULL,
+openDinner ENUM('yes', 'no') NOT NULL,
 PRIMARY KEY (restaurantID),
 FOREIGN KEY (restaurantID) REFERENCES Restaurants(restaurantID) ON DELETE CASCADE
 );
-INSERT INTO Times (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0116, 'M,T,W,Th,F,S,Su' , 0,1,1);
-INSERT INTO Times (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0601, 'M,T,W,Th,F,S,Su' , 0,0,1);
-INSERT INTO Times (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0630, 'M,T,W,Th,F,S,Su' , 0,1,1);
-INSERT INTO Times (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0319, 'M,T,W,Th,F,S,Su' , 1,1,0);
-INSERT INTO Times (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0809, 'M,T,W,Th,F,S,Su' , 1,1,1);
-select * from Times;
+INSERT INTO Hours (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0116, 'M,T,W,Th,F,S,Su' , 'no','yes','yes');
+INSERT INTO Hours (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0601, 'M,T,W,Th,F,S,Su' , 'no','no','yes');
+INSERT INTO Hours (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0630, 'M,T,W,Th,F,S,Su' , 'no','yes','yes');
+INSERT INTO Hours (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0319, 'M,T,W,Th,F,S,Su' , 'yes','yes','no');
+INSERT INTO Hours (restaurantID,day, openBreak, openLunch, openDinner) VALUES (0809, 'M,T,W,Th,F,S,Su' , 'yes','yes','yes');
+select * from Hours;
 
 
 
@@ -48,18 +48,18 @@ CREATE TABLE Menu (
 restaurantID int NOT NULL,
 cuisineType CHAR(25) NOT NULL,
 priceRange ENUM('low','med', 'high') NOT NULL,
-isVegetarian BOOLEAN,
-isGlutenFree BOOLEAN,
-isVegan BOOLEAN,
+isVegetarian ENUM('yes', 'no'),
+isGlutenFree ENUM('yes', 'no'),
+isVegan ENUM('yes', 'no'),
 PRIMARY KEY (restaurantID),
 FOREIGN KEY (restaurantID) REFERENCES Restaurants(restaurantID) ON DELETE CASCADE
 );
-INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0116, 'steakhouse', 'med', 1, 1, 1);
-INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0601, 'new american' , 'high', 1,1,1);
-INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0630, 'gastropub' , 'med', 1,1,0);
-INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0319, 'pizza' , 'low', 1,1,0);
-INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0715, 'brunch' , 'med', 1,1,0);
-INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0809, 'brunch' , 'low', 1,1,0);
+INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0116, 'steakhouse', 'med', 'yes','yes','yes');
+INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0601, 'new american' , 'high', 'yes','yes','yes');
+INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0630, 'gastropub' , 'med', 'yes','yes','no');
+INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0319, 'pizza' , 'low', 'yes','yes','no');
+INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0715, 'brunch' , 'med', 'yes','yes','no');
+INSERT INTO Menu (restaurantID,cuisineType, priceRange, isVegetarian, isGlutenFree, isVegan) VALUES (0809, 'brunch' , 'low', 'yes','yes','no');
 
 select * from Menu;
 
