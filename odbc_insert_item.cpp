@@ -6,8 +6,12 @@ run:
 #include <iostream>
 #include <string>
 #include <vector>
+#include <sstream>
+#include <ctime>
+#include <iomanip>
 using namespace std;
 
+// ADD A RESTAURANT
 void add_restaurant(odbc_db myDB, vector <string> values)
 {
    // Parse input string to get restaurant Name and Type and  City
@@ -32,6 +36,7 @@ void add_restaurant(odbc_db myDB, vector <string> values)
    myDB.disConnect();//disconect Database
 }
 
+// ADD RESTAURANT HOURS
 void add_hours(odbc_db myDB, vector <string> values)
 {
    // Parse input string to get restaurant Name and Type and  City
@@ -55,6 +60,7 @@ void add_hours(odbc_db myDB, vector <string> values)
    myDB.disConnect();//disconect Database
 }
 
+// ADD A MENU
 void add_menu(odbc_db myDB, vector <string> values)
 {
    // Parse input string to get restaurant Name and Type and  City
@@ -81,6 +87,19 @@ void add_menu(odbc_db myDB, vector <string> values)
    myDB.disConnect();//disconect Database
 }
 
+// FIND RESTAURANT BY CITY
+void findByCity(odbc_db myDB, vector <string> values)
+{
+   string city = values[0];
+
+   string rawQuery = "SELECT Restaurants.name FROM Restaurants WHERE Restaurants.city = '" + city + "';";
+
+
+   cout << myDB.print(myDB.rawQuery(rawQuery));
+
+}
+
+// REMOVE A RESTAURANT
 void remove_restaurant(odbc_db myDB, vector <string> values)
 {
    string rest_id = values[0];
@@ -91,6 +110,69 @@ void remove_restaurant(odbc_db myDB, vector <string> values)
    else if(name.length() == 0) myDB.remove("Restaurants", "restaurantID", rest_id);
    
 }
+
+// CONVERT STRING TIME TO MINUTES
+int timeStringToMinutes(const string& timeStr) {
+    struct tm tm = {};
+    char* result = strptime(timeStr.c_str(), "%I:%M %p", &tm); // %I = 12-hour, %p = AM/PM
+
+    if (result == nullptr) {
+        return -1; // Invalid format
+    }
+
+    return tm.tm_hour * 60 + tm.tm_min;
+}
+
+// FIND BY OPEN TIME
+int findByTime(odbc_db myDB, vector <string> values)
+{
+    string first = values[0];
+    string second = values[1];
+    string third = values[2];
+    string rawQuery;
+    string timeToUse;
+
+   // USE ENTERED TIME
+   if (first.length() == 0) {
+    timeToUse = second + " " + third;
+   } 
+   // USE CURRENT TIME
+   else {
+      timeToUse = first + " " + second;
+   }
+
+    int minutes = timeStringToMinutes(timeToUse);
+
+   // ERROR
+    if (minutes == -1) {
+        cout << "Invalid time format" << endl;
+        return 1;
+    }
+    if (minutes >= 0 && minutes <= 600) { // 12:00 AM - 10:00 AM
+        rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants "
+                   "JOIN Hours ON Restaurants.restaurantID = Hours.restaurantID "
+                   "WHERE Hours.openBreak = 'yes';";
+         cout << "Restaurant Open for Breakfast:" << endl;
+    }
+    else if ((minutes >= 1380 && minutes <= 1439) || (minutes >= 0 && minutes <= 900)) { // 11:00 PM - 3:00 PM (wraps around midnight)
+        rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants "
+                   "JOIN Hours ON Restaurants.restaurantID = Hours.restaurantID "
+                   "WHERE Hours.openLunch = 'yes';";
+         cout << "Restaurant Open for Lunch:" << endl;
+    }
+    else if (minutes > 900) { // After 3:00 PM
+        rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants "
+                   "JOIN Hours ON Restaurants.restaurantID = Hours.restaurantID "
+                   "WHERE Hours.openDinner = 'yes';";
+         cout << "Restaurant Open for Dinner:" << endl;
+    }
+
+   cout << myDB.print(myDB.rawQuery(rawQuery));
+   
+}
+
+
+
 
 int main(int argc, char *argv[])
 {
@@ -110,6 +192,8 @@ int main(int argc, char *argv[])
       values.push_back(argv[i]);
    }
 
+   // cout << queryType ;
+
 
    if(queryType == "restaurant"){
       
@@ -124,6 +208,13 @@ int main(int argc, char *argv[])
    else if(queryType == "remove"){
       remove_restaurant(myDB,values);
    }
+   else if(queryType == "city"){
+      findByCity(myDB, values);
+   }
+   else if(queryType == "time"){
+      findByTime(myDB, values);
+   }
+
    return 0;
 }
 

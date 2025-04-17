@@ -34,7 +34,7 @@ void odbc_db::disConnect()
 // and print the resulting relation
 string odbc_db::query(string q) 
 {
-string builder = ""; 
+   string builder = ""; 
    try 
    {
       resultSet = statement->executeQuery(q);
@@ -57,7 +57,7 @@ string builder = "";
 // and print the resulting relation
 sql::ResultSet* odbc_db::rawQuery(string q) 
 {
-string builder = ""; 
+   string builder = ""; 
    try 
    {
       resultSet = statement->executeQuery(q);
@@ -77,15 +77,36 @@ string builder = "";
 // Followed by the tuples, one per line
 string odbc_db::print (sql::ResultSet *resultSet) 
 {
-string builder = ""; 
+   string builder = ""; 
    try
    {
       if (resultSet -> rowsCount() != 0)
       {
          sql::ResultSetMetaData *metaData = resultSet->getMetaData();
          int numColumns = metaData->getColumnCount();
-         builder.append(printHeader( metaData, numColumns));
-         builder.append(printRecords( resultSet, numColumns));
+         // Start the table
+         builder.append("<table border='1' cellpadding='5' cellspacing='0' style='border-collapse: collapse;'>");
+
+         // Add headers
+         sql::ResultSetMetaData* meta = resultSet->getMetaData();
+         int columnCount = meta->getColumnCount();
+
+         builder.append("<tr>");
+         for (int i = 1; i <= columnCount; ++i) {
+            builder.append("<th>" + meta->getColumnLabel(i) + "</th>");
+         }
+         builder.append("</tr>");
+
+         // Add rows
+         while (resultSet->next()) {
+            builder.append("<tr>");
+            for (int i = 1; i <= columnCount; ++i) {
+               builder.append("<td>" + resultSet->getString(i) + "</td>");
+            }
+            builder.append("</tr>");
+         }
+
+         builder.append("</table>");
       }
       else
          throw runtime_error("ResultSetMetaData FAILURE - no records in the result set");
@@ -99,7 +120,7 @@ string builder = "";
 // Print the attribute names
 string odbc_db::printHeader(sql::ResultSetMetaData *metaData, int numColumns)
 { 
-string builder = "";
+   string builder = "";
 
    try 
    {
@@ -121,7 +142,7 @@ string builder = "";
 // Print the attribute values for all tuples in the result
 string odbc_db::printRecords(sql::ResultSet *resultSet, int numColumns)   
 { 
-string builder = "";
+   string builder = "";
 
    //Printing Records
    try
@@ -146,7 +167,7 @@ string builder = "";
 // Insert into any table, any values from data passed in as String parameters
 void odbc_db::insert(string table, string values) 
 {
-string query = "INSERT into " + table + " values (" + values + ")";
+   string query = "INSERT into " + table + " values (" + values + ")";
 
    statement->executeUpdate(query);
 }
@@ -159,6 +180,12 @@ void odbc_db::remove(string table, string col, string values)
 
    statement->executeUpdate(query);
 }
+
+void odbc_db::test(string query) 
+{
+
+   statement->executeUpdate(query);
+} 
 
 // Remove all records and fill them with values for testing
 // Assumes that the tables are already created

@@ -20,8 +20,8 @@ if ($conn->connect_error) {
 <head>
   <style>
     body {
-        /* background-color: #ffb766 */
-        background-image: url('restauant.jpg');
+        background-color: #ffb766; 
+        /* background-image: url('restauant.jpg'); */
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: fixed;
@@ -150,7 +150,7 @@ if ($conn->connect_error) {
 
     <div class="restaurant">
         <h1>Add a restaurant</h1>
-        <form action="odbc_insert_item.php?type=restaurant" method="post">
+        <form action="add.php?type=restaurant" method="post">
         <?php $test = 'restaurant'; ?>
             Restaurant ID: <input type="text" name="rest_id"><br><br>
             Name: <input type="text" name="name"><br><br>
@@ -163,7 +163,7 @@ if ($conn->connect_error) {
 
     <div class="hours">
         <h1>Add hours</h1>
-        <form action="odbc_insert_item.php?type=hours" method="post">
+        <form action="add.php?type=hours" method="post">
             Restaurant ID: <input type="text" name="rest_id"><br><br>
             Days: 
             <input type="checkbox" id="M" name="days[]" value="M">
@@ -206,7 +206,7 @@ if ($conn->connect_error) {
 
     <div class="menu">
         <h1>Add a menu</h1>
-        <form action="odbc_insert_item.php?type=menu" method="post">
+        <form action="add.php?type=menu" method="post">
             Restaurant ID: <input type="text" name="rest_id"><br><br>
             Cuisine Type: <input type="text" name="cuisineType"><br><br>
             Price range: 
@@ -241,7 +241,7 @@ if ($conn->connect_error) {
 
     <div class="remove">
         <h1>Remove a restaurant</h1>
-        <form action="odbc_insert_item.php?type=remove" method="post">
+        <form action="add.php?type=remove" method="post">
             Restaurant ID: <input type="text" name="rest_id"><br>
             Name: <input type="text" name="name"><br>
             <input name="remove" type="submit" >
@@ -279,9 +279,6 @@ if (isset($_POST['submitRest']))
     // Display results
     // echo "Return code: $retVal<br>";
     // echo "Output: $output<br>";
-
-
-         
 }
 
 // ADD HOURS

@@ -3,7 +3,7 @@
  
 <style>
     body {
-        /* background-color: #ffb766 */
+        background-color: #ffb766
         background-image: url('restaraunt.jpg');
         background-repeat: no-repeat;
         background-size: cover;
@@ -11,20 +11,57 @@
         background-position: center;
         
     }
-
+h1{
+  color: white
+}
 .top{
   color: white;
   text-align: center
+}
+.nav-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.nav-bar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: bold;
+}
+
+.nav-bar a:hover {
+    text-decoration: underline;
+}
+
+.search-bar input[type="text"] {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 200px;
+}
+
+.search-bar input[type="submit"] {
+    padding: 5px 12px;
+    border-radius: 5px;
+    background-color: #555;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-bar input[type="submit"]:hover {
+    background-color: #777;
 }
 .content {
       margin: auto;
       max-width: 200px;
       scroll-behavior: smooth;
   }
-
-.menu-box {
-  /* margin-bottom: 300px; */
-}
 
 .button {
   background-color: #555555; /* Green */
@@ -56,28 +93,40 @@
 }
 </style>
 <body>
+    <div class="nav-bar">
+        <div class="links">
+            <!-- <a href="home.php">Home</a> -->
+            <a href="add.php?type=restaurant">Add Restaurant</a>
+            <a href="add.php?type=hours">Add restaraunt hours</a>
+            <a href="add.php?type=menu">Add a menu</a>
+        </div>
+    <h1>NWA Restaraunts</h1>
+
+        <div class="search-bar">
+            <form action="search.php" method="get">
+                <input type="text" name="q" placeholder="Search...">
+                <input type="submit" value="Go">
+            </form>
+        </div>
+    </div>  
 
 
-    <div class="top">
-      <h1>NWA Restaraunts</h1>
-    </div>
   <div class="content">
     <div class="menu-box">
-      <button class="button menu" type="button" onclick="window.location.href='odbc_insert_item.php?type=restaurant';"  >Add a restaraunt</button>
-      <button class="button menu" type="button" onclick="window.location.href='odbc_insert_item.php?type=hours';">Add restaraunt hours</button>
-      <button class="button menu" type="button" onclick="window.location.href='odbc_insert_item.php?type=menu';">Add a menu</button>
-      <br>
-      <button class="button menu" type="button">Query hours</button>
+      <!-- <button class="button menu" type="button" onclick="window.location.href='add.php?type=restaurant';"  >Add a restaraunt</button>
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=hours';">Add restaraunt hours</button>
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=menu';">Add a menu</button>
+      <br> -->
+      <button class="button menu" type="button" onclick="window.location.href='find.php?type=hours';">Find Open Restaraunts</button>
       <button class="button menu" type="button">Query menu options</button>
-      <button class="button menu" type="button">Find restaraunts by city</button>
-      <button class="button menu" type="button">Find restaraunts by ratings</button>
-      <button class="button menu" type="button" onclick="window.location.href='odbc_insert_item.php?type=remove';" >Remove a restaraunt</button>
+      <button class="button menu" type="button" onclick="window.location.href='find.php?type=city';">Find restaraunts by city</button>
+      <button class="button menu" type="button" onclick="window.location.href='search.php';">Search For Restaurants</button>
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=remove';" >Remove a restaraunt</button>
     </div>
 <br><br>
     
     </div>
     <br><br>
-</div>
 </body>
 </html>
 
