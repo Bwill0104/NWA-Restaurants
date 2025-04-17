@@ -86,7 +86,6 @@ void remove_restaurant(odbc_db myDB, vector <string> values)
    string rest_id = values[0];
    string name = values[1];
 
-   cout << "STUFF: " << rest_id << name << endl;
 
    if(rest_id.length() == 0) myDB.remove("Restaurants", "name", name);
    else if(name.length() == 0) myDB.remove("Restaurants", "restaurantID", rest_id);
@@ -109,7 +108,6 @@ int main(int argc, char *argv[])
 
    for(int i = 2; i < argc; i++){
       values.push_back(argv[i]);
-      cout << argv[i] << endl;
    }
 
 

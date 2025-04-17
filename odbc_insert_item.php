@@ -1,6 +1,20 @@
 <?php
 $type = $_GET['type'] ?? '';
+$servername = "localhost";
+$username = "bryanw";
+$password = "Chooc8ai";
+$database = "bryanw";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 ?>
+
+
 
 <html>
 <head>
@@ -104,6 +118,36 @@ $type = $_GET['type'] ?? '';
 
 
   <div class="content">
+
+    <!-- PRINT THE RESTAURANT TABLE -->
+      <?php
+        $sql = "SELECT * FROM Restaurants";
+        $result = $conn->query($sql);
+
+        echo "<table border='1'>";
+        echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  // Customize columns
+
+        if ($result->num_rows > 0) {
+            // Output each row
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["restaurantID"] . "</td>";  // Adjust column names
+                echo "<td>" . $row["name"] . "</td>";
+                echo "<td>" . $row["city"] . "</td>";
+                echo "<td>" . $row["address"] . "</td>";  // Adjust column names
+                echo "<td>" . $row["rating"] . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='3'>No results</td></tr>";
+        }
+        echo "</table>";
+
+        $conn->close();
+      ?>  
+
+
+
     <div class="restaurant">
         <h1>Add a restaurant</h1>
         <form action="odbc_insert_item.php?type=restaurant" method="post">
@@ -225,7 +269,7 @@ if (isset($_POST['submitRest']))
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
 
-    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
     system('chmod o+x odbc_insert_item.exe');
     system('chmod 755 odbc_insert_item.exe');
 
@@ -233,8 +277,8 @@ if (isset($_POST['submitRest']))
     $output = system($command, $retVal);
     
     // Display results
-    echo "Return code: $retVal<br>";
-    echo "Output: $output<br>";
+    // echo "Return code: $retVal<br>";
+    // echo "Output: $output<br>";
 
 
          
@@ -258,7 +302,7 @@ else if (isset($_POST['submitHours']))
 
       // You can also implode them into a single string if needed
       $daysString = implode(",", $selectedDays);
-      echo "All selected days: $daysString";
+      // echo "All selected days: $daysString";
       } else {
           echo "No days selected.";
       }
@@ -266,7 +310,7 @@ else if (isset($_POST['submitHours']))
     // DOES IT HAVE BREAKFAST
     if (isset($_POST['openBreak'])) {
         $isBreakfast = $_POST['openBreak'];
-        echo "Breakfast selected: " . htmlspecialchars($isBreakfast);
+        // echo "Breakfast selected: " . htmlspecialchars($isBreakfast);
       } else {
           echo "No breakfast option selected.";
       }
@@ -274,7 +318,7 @@ else if (isset($_POST['submitHours']))
     // DOES IT HAVE LUNCH
     if (isset($_POST['openLunch'])) {
       $isLunch = $_POST['openLunch'];
-      echo "Lunch selected: " . htmlspecialchars($isLunch);
+      // echo "Lunch selected: " . htmlspecialchars($isLunch);
       } else {
           echo "No lunch option selected.";
       }
@@ -282,7 +326,7 @@ else if (isset($_POST['submitHours']))
     // DOES IT HAVE DINNER
     if (isset($_POST['openDinner'])) {
       $isDinner = $_POST['openDinner'];
-      echo "Dinner selected: " . htmlspecialchars($isDinner);
+      // echo "Dinner selected: " . htmlspecialchars($isDinner);
       } else {
           echo "No dinner option selected.";
       }
@@ -290,7 +334,7 @@ else if (isset($_POST['submitHours']))
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $daysString . ' ' . $isBreakfast. ' ' . $isLunch. ' ' .$isDinner;
    
 
-    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
     system('chmod o+x odbc_insert_item.exe');
     system('chmod 755 odbc_insert_item.exe');
 
@@ -298,8 +342,8 @@ else if (isset($_POST['submitHours']))
     $output = system($command, $retVal); 
     
     // For debugging 
-    echo "Return code: $retVal<br>";
-    echo "Output: $output<br>";
+    // echo "Return code: $retVal<br>";
+    // echo "Output: $output<br>";
 }
 
 // ADD MENU
@@ -317,42 +361,42 @@ else if (isset($_POST['submitMenu']))
     // VEGAN
     if (isset($_POST['isVegan'])) {
       $isVegan = $_POST['isVegan'];
-      echo "Vegan selected: " . htmlspecialchars($isVegan);
+      // echo "Vegan selected: " . htmlspecialchars($isVegan);
       } else {
           echo "No dinner option selected.";
       }
     // VEGETARIAN
     if (isset($_POST['isVegetarian'])) {
       $isVegetarian = $_POST['isVegetarian'];
-      echo "Vegetarian selected: " . htmlspecialchars($isVegetarian);
+      // echo "Vegetarian selected: " . htmlspecialchars($isVegetarian);
       } else {
           echo "No dinner option selected.";
       }
     // GLUTEN FREE
     if (isset($_POST['isGlutenFree'])) {
       $isGlutenFree = $_POST['isGlutenFree'];
-      echo "Gluten free selected: " . htmlspecialchars($isGlutenFree);
+      // echo "Gluten free selected: " . htmlspecialchars($isGlutenFree);
       } else {
           echo "No dinner option selected.";
       }
     // PRICE RANGE
     if (isset($_POST['priceRange'])) {
       $priceRange = $_POST['priceRange'];
-      echo "Vegan selected: " . htmlspecialchars($priceRange);
+      // echo "Vegan selected: " . htmlspecialchars($priceRange);
       } else {
           echo "No dinner option selected.";
       }
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $cuisineType . ' ' . $priceRange. ' ' .$isVegetarian. ' ' . $isGlutenFree. ' ' . $isVegan;
 
-    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
     // Run the command
     $output = system($command, $retVal);
 
     // For debugging 
-    echo "Return code: $retVal<br>";
-    echo "Output: $output<br>";
+    // echo "Return code: $retVal<br>";
+    // echo "Output: $output<br>";
 }
 
 // REMOVE RESTAURANT
@@ -365,14 +409,14 @@ else if (isset($_POST['remove']))
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $name;
 
-    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
     // Run the command
     $output = system($command, $retVal);    
 
     // For debugging 
-    echo "Return code: $retVal<br>";
-    echo "Output: $output<br>";
+    // echo "Return code: $retVal<br>";
+    // echo "Output: $output<br>";
 }
 ?>
 
