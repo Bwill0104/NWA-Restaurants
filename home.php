@@ -15,8 +15,10 @@ if ($conn->connect_error) {
 ?>
 
 <html>
+<link rel="stylesheet" href="styles.css">
+<head>
 <style>
-   
+
 h1{
   color: white
 }
@@ -24,46 +26,7 @@ h1{
   color: white;
   text-align: center
 }
-.nav-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    padding: 10px 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}
 
-.nav-bar a {
-    color: white;
-    text-decoration: none;
-    margin-right: 20px;
-    font-weight: bold;
-}
-
-.nav-bar a:hover {
-    text-decoration: underline;
-}
-
-.search-bar input[type="text"] {
-    padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 200px;
-}
-
-.search-bar input[type="submit"] {
-    padding: 5px 12px;
-    border-radius: 5px;
-    background-color: #555;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.search-bar input[type="submit"]:hover {
-    background-color: #777;
-}
 .content {
       margin: auto;
       max-width: 200px;
@@ -79,19 +42,7 @@ h1{
 }
 
 
-.button {
-  background-color: #555555; /* Green */
-  border: none;
-  color: white;
-  padding: 8px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-}
+
 .menu {
   background-color: white;
   color: black;
@@ -99,23 +50,20 @@ h1{
 }
 
 .menu:hover {
+  -webkit-transform: translateY(-6px);
+  transform: translateY(-6px);
   background-color: #555555;
-  color: white;
+  color:   #ffb766;
+  ;
 }
 
 .form {
   background-color: #555555;
   display: "none";
 }
-.table-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: start; /* align to top */
-  padding-top: 20px;
-  position: relative; /* not absolute */
-  height: auto;
-}
+
 </style>
+</head>
 <body>
     <div class="nav-bar">
         <div class="links">
@@ -229,7 +177,7 @@ if (isset($_POST['search']) && !empty($_POST[searchRestaurant])) {
   $query = escapeshellarg("searchBar");
   $name = escapeshellarg($_POST[searchRestaurant]);
 
-  $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query . ' ' . $name;
+  $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query . ' ' . $name;
 
   // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 

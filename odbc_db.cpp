@@ -177,7 +177,6 @@ void odbc_db::remove(string table, string col, string values)
 {
    string query = "DELETE FROM " + table + " WHERE " + col + " = '" + values + "'";
    
-   cout << "QUERY: " << query << endl;
 
    statement->executeUpdate(query);
 }

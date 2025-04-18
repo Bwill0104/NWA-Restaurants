@@ -25,8 +25,8 @@ if ($conn->connect_error) {
 
     .content {
         margin: auto;
-        max-width: 50%;
         scroll-behavior: smooth;
+        margin-left: 40%;
     }
 
     label {
@@ -148,7 +148,7 @@ if ($conn->connect_error) {
         </span>
         <br><br>
 
-        <input name="submit" type="submit" value="Submit">
+        <input class="button"name="submit" type="submit" value="Submit">
     </form>
         <br><br>
     <script>
@@ -194,7 +194,7 @@ if (isset($_POST['submit'])) {
   $rest_id = escapeshellarg($_POST[rest_id]);
   $rating = escapeshellarg($_POST[rating]) ?? 0;
 
-  $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query . ' ' . $rest_id. ' ' . $rating;
+  $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query . ' ' . $rest_id. ' ' . $rating;
 
 //   echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 

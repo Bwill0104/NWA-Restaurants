@@ -7,12 +7,14 @@ $type = $_GET['type'] ?? '';
 <link rel="stylesheet" href="styles.css">
   <style>
  
-
+h1{
+  color:  #333;
+}
 .content {
-      margin: auto;
-      max-width: 200px;
-      scroll-behavior: smooth;
-  }
+  margin: auto;
+  max-width: 200px;
+  scroll-behavior: smooth;
+}
   <?php if ($type === 'city'): ?>
           .city {
           /* background-color: #555555; */
@@ -84,11 +86,11 @@ if (isset($_POST['submitCity']))
     $query = escapeshellarg("city");
     $city = escapeshellarg($_POST[city]);
 
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$city;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$city;
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-    system('chmod o+x odbc_insert_item.exe');
-    system('chmod 755 odbc_insert_item.exe');
+    system('chmod o+x odbc_query.exe');
+    system('chmod 755 odbc_query.exe');
 
     // Run the command
     $output = shell_exec($command);
@@ -99,34 +101,7 @@ if (isset($_POST['submitCity']))
     echo "<table border='1'>";
     echo "$output<br>";
     echo "</table>";
-    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
-    echo "</div>";
-    echo "<style> .content{ display: none} </style>";
-}
-
-// FIND BY RATING
-if (isset($_POST['submitRating'])) 
-{
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
-    $query = escapeshellarg("rating");
-    $rating = escapeshellarg($_POST[rating]);
-
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$rating;
-
-    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-    system('chmod o+x odbc_insert_item.exe');
-    system('chmod 755 odbc_insert_item.exe');
-
-    // Run the command
-    $output = shell_exec($command);
-    
-    // Display results
-    // echo "Return code: $retVal<br>";
-    echo "<div class='table-wrapper'>";
-    echo "<table border='1'>";
-    echo "$output<br>";
-    echo "</table>";
-    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
+    echo "<button class='button bac' type='button' onclick=\"window.location.href='find.php?type=city';\">Back</button>";
     echo "</div>";
     echo "<style> .content{ display: none} </style>";
 }
@@ -147,11 +122,11 @@ if (isset($_POST['submitTime']) || isset($_POST['current']))
       
 
 
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$enteredTime. ' '.$hourString. ' ' .$currentTime;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$enteredTime. ' '.$hourString. ' ' .$currentTime;
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-    system('chmod o+x odbc_insert_item.exe');
-    system('chmod 755 odbc_insert_item.exe');
+    system('chmod o+x odbc_query.exe');
+    system('chmod 755 odbc_query.exe');
 
     // Run the command
     $output = shell_exec($command);
@@ -162,7 +137,7 @@ if (isset($_POST['submitTime']) || isset($_POST['current']))
     echo "<table border='1'>";
     echo "$output<br>";
     echo "</table>";
-    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
+    echo "<button class='button bac' type='button' onclick=\"window.location.href='find.php?type=hours';\">Back</button>";
     echo "</div>";
     echo "<style> .content{ display: none} </style>";
     
@@ -196,8 +171,8 @@ if (isset($_POST['submitTime']) || isset($_POST['current']))
             </div>
             <?php $test = 'hours'; ?>
               <div id="hoursButtons" >
-                <input type="submit" name="current" value="Use current time">
-                <input type="submit" name="enter" value="Enter a time" onclick="showInputBox(event)">
+                <input class="button" type="submit" name="current" value="Use current time">
+                <input class="button" type="submit" name="enter" value="Enter a time" onclick="showInputBox(event)">
                </div>  
             </form>
         </div>

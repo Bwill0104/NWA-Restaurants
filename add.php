@@ -23,7 +23,7 @@ if ($conn->connect_error) {
   <style>
   
 h1 {
-  color: black;
+  color: #333;
 }
   .top{
     color: white;
@@ -32,8 +32,10 @@ h1 {
 
   .content {
         margin: auto;
-        width: 50%;
         scroll-behavior: smooth;
+        margin-left: 40%;
+
+        
   }
   input[type=text] {
   margin: 8px 0;
@@ -71,6 +73,8 @@ input[type=text]:focus {
   top: 0;
   left: 0;
   width: 100%;
+
+  
 }
     <?php if ($type === 'restaurant'): ?>
           .restaurant {
@@ -188,7 +192,7 @@ input[type=text]:focus {
               City: <input type="text" name="city"><br><br>
               Address: <input type="text" name="address"><br><br>
               Rating: <input type="text" name="rating"><br><br>
-              <input name="submitRest" type="submit" >
+              <input class="button" name="submitRest" type="submit" >
           </form>
       </div>
 
@@ -231,7 +235,7 @@ input[type=text]:focus {
               <label for="no">No</label><br><br>
 
 
-              <input name="submitHours" type="submit" >
+              <input class="button" name="submitHours" type="submit" >
           </form>
       </div>
 
@@ -266,7 +270,7 @@ input[type=text]:focus {
               <label for="yes">Yes</label>
               <input type="radio" id="no" name="isVegan" value="no">
               <label for="no">No</label><br><br>
-              <input name="submitMenu" type="submit" >
+              <input class="button" name="submitMenu" type="submit" >
           </form>
       </div>
 
@@ -275,7 +279,7 @@ input[type=text]:focus {
           <form action="add.php?type=remove" method="post">
               Restaurant ID: <input type="text" name="rest_id"><br>
               Name: <input type="text" name="name"><br>
-              <input name="remove" type="submit" >
+              <input class="button" name="remove" type="submit" >
           </form>
       
       </div>
@@ -301,11 +305,11 @@ if (isset($_POST['submitRest']))
     $address = escapeshellarg($_POST[address]);
     $rating = escapeshellarg($_POST[rating]);
 
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
    
-    system('chmod 755 odbc_insert_item.exe');
+    system('chmod 755 odbc_query.exe');
 
     // Run the command
     $output = system($command, $retVal);
@@ -362,7 +366,7 @@ else if (isset($_POST['submitHours']))
           echo "No dinner option selected.";
       }
 
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $daysString . ' ' . $isBreakfast. ' ' . $isLunch. ' ' .$isDinner;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' '. $rest_id . ' ' . $daysString . ' ' . $isBreakfast. ' ' . $isLunch. ' ' .$isDinner;
    
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
@@ -416,7 +420,7 @@ else if (isset($_POST['submitMenu']))
           echo "No dinner option selected.";
       }
 
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $cuisineType . ' ' . $priceRange. ' ' .$isVegetarian. ' ' . $isGlutenFree. ' ' . $isVegan;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' '. $rest_id . ' ' . $cuisineType . ' ' . $priceRange. ' ' .$isVegetarian. ' ' . $isGlutenFree. ' ' . $isVegan;
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
@@ -436,7 +440,7 @@ else if (isset($_POST['remove']))
     $rest_id = escapeshellarg($_POST[rest_id]);
     $name = escapeshellarg($_POST[name]);
 
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' '. $rest_id . ' ' . $name;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' '. $rest_id . ' ' . $name;
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 

@@ -6,9 +6,9 @@
   
 
     .content {
-        margin: auto;
-        width: 30%;
-        scroll-behavior: smooth;
+    margin: auto;
+    max-width: 200px;
+    scroll-behavior: smooth;
     }
 
     .select {
@@ -105,7 +105,7 @@ if (isset($_POST['submit']))
     $vegan = escapeshellarg($_POST[vegan]);
 
 
-    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$meal. ' ' .$vegetarian. ' ' .$gluten. ' ' .$vegan;
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$meal. ' ' .$vegetarian. ' ' .$gluten. ' ' .$vegan;
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
