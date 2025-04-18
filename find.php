@@ -72,7 +72,7 @@ h1{
 
         <div class="search-bar">
             <form action="home.php" method="post">
-                <input type="text" name="searchRestaurant" placeholder="Search...">
+                <input type="text" name="searchRestaurant" placeholder="Restaurant name...">
                 <input name="search" type="submit" value="Search">
             </form>
         </div>
@@ -152,7 +152,7 @@ if (isset($_POST['submitTime']) || isset($_POST['current']))
             <form action="find.php?type=city" method="post">
             <?php $test = 'restaurant'; ?>
                 Enter city: <input type="text" name="city"><br><br>
-                <input name="submitCity" type="submit" >
+                <input class="button" name="submitCity" type="submit" >
             </form>
         </div>
         <div class="hours">

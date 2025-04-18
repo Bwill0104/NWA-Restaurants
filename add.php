@@ -147,7 +147,7 @@ input[type=text]:focus {
 
         <div class="search-bar">
             <form action="home.php" method="post">
-                <input type="text" name="searchRestaurant" placeholder="Search...">
+                <input type="text" name="searchRestaurant" placeholder="Restaurant name...">
                 <input name="search" type="submit" value="Search">
             </form>
         </div>

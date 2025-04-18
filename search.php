@@ -43,7 +43,7 @@
 
         <div class="search-bar">
             <form action="home.php" method="post">
-                <input type="text" name="searchRestaurant" placeholder="Search...">
+                <input type="text" name="searchRestaurant" placeholder="Restaurant name...">
                 <input name="search" type="submit" value="Search">
             </form>
         </div>
@@ -119,7 +119,7 @@ if (isset($_POST['submit']))
     echo "<table border='1'>";
     echo "$output<br>";
     echo "</table>";
-    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
+    echo "<button class='button bac' type='button' onclick=\"window.location.href='search.php';\">Back</button>";
     echo "</div>";
     echo "<style> .content{ display: none} </style>";
 }

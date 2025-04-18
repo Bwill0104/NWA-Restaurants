@@ -15,11 +15,11 @@ using namespace std;
 void add_restaurant(odbc_db myDB, vector <string> values)
 {
    // Parse input string to get restaurant Name and Type and  City
-    string rest_id = values[0];
-    string name = values[1];
-    string city = values[2];
-    string address = values[3];
-    string rating = values[4];
+   string rest_id = values[0];
+   string name = values[1];
+   string city = values[2];
+   string address = values[3];
+   string rating = values[4];
 
 
    // Insert the new restaurant
@@ -40,11 +40,11 @@ void add_restaurant(odbc_db myDB, vector <string> values)
 void add_hours(odbc_db myDB, vector <string> values)
 {
    // Parse input string to get restaurant Name and Type and  City
-    string rest_id = values[0];
-    string days = values[1];
-    string openBreak = values[2];
-    string openLunch = values[3];
-    string openDinner = values[4];
+   string rest_id = values[0];
+   string days = values[1];
+   string openBreak = values[2];
+   string openLunch = values[3];
+   string openDinner = values[4];
 
    // Insert the new restaurant
    string input = "'" + rest_id + "','" + days + "','" + openBreak + "','" + openLunch + "','" + openDinner + "'";
@@ -64,12 +64,12 @@ void add_hours(odbc_db myDB, vector <string> values)
 void add_menu(odbc_db myDB, vector <string> values)
 {
    // Parse input string to get restaurant Name and Type and  City
-    string rest_id = values[0];
-    string cuisineType = values[1];
-    string priceRange = values[2]; // CAST TO INT
-    string isVegetarian = values[3];
-    string isGlutenFree = values[4];
-    string isVegan = values[4];
+   string rest_id = values[0];
+   string cuisineType = values[1];
+   string priceRange = values[2]; // CAST TO INT
+   string isVegetarian = values[3];
+   string isGlutenFree = values[4];
+   string isVegan = values[4];
 
    
 
@@ -122,21 +122,21 @@ int timeStringToMinutes(const string& timeStr) {
     struct tm tm = {};
     char* result = strptime(timeStr.c_str(), "%I:%M %p", &tm); // %I = 12-hour, %p = AM/PM
 
-    if (result == nullptr) {
-        return -1; // Invalid format
-    }
+   if (result == nullptr) {
+      return -1; // Invalid format
+   }
 
-    return tm.tm_hour * 60 + tm.tm_min;
+   return tm.tm_hour * 60 + tm.tm_min;
 }
 
 // FIND BY OPEN TIME
 int findByTime(odbc_db myDB, vector <string> values)
 {
-    string first = values[0];
-    string second = values[1];
-    string third = values[2];
-    string rawQuery;
-    string timeToUse;
+   string first = values[0];
+   string second = values[1];
+   string third = values[2];
+   string rawQuery;
+   string timeToUse;
 
    // USE ENTERED TIME
    if (first.length() == 0) {
@@ -246,8 +246,6 @@ void review(odbc_db myDB, vector <string> values)
    // cout << result;
    
 }
-
-
 
 
 int main(int argc, char *argv[])

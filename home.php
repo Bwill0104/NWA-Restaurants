@@ -15,8 +15,9 @@ if ($conn->connect_error) {
 ?>
 
 <html>
-<link rel="stylesheet" href="styles.css">
+
 <head>
+<link rel="stylesheet" href="styles.css">
 <style>
 
 h1{
@@ -26,13 +27,11 @@ h1{
   color: white;
   text-align: center
 }
-
 .content {
       margin: auto;
       max-width: 200px;
       scroll-behavior: smooth;
-  }
-
+}
 .tables {
   max-width: 500px;
   margin: auto;
@@ -40,15 +39,11 @@ h1{
   padding-top: 10px;
 
 }
-
-
-
 .menu {
   background-color: white;
   color: black;
   border: 2px solid #555555;
 }
-
 .menu:hover {
   -webkit-transform: translateY(-6px);
   transform: translateY(-6px);
@@ -61,6 +56,28 @@ h1{
   background-color: #555555;
   display: "none";
 }
+.image-container {
+      position: relative;
+      width: 256px;
+      height: 144px;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .overlay-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      text-shadow: 1px 1px 4px black;
+    }
 
 </style>
 </head>
@@ -75,7 +92,7 @@ h1{
 
         <div class="search-bar">
             <form action="home.php" method="post">
-                <input type="text" name="searchRestaurant" placeholder="Search...">
+                <input type="text" name="searchRestaurant" placeholder="Restaurant name...">
                 <input name="search" type="submit" value="Search">
             </form>
         </div>
@@ -147,7 +164,7 @@ h1{
         $result = $conn->query($sql);
 
         echo "<table border='1'>";
-        echo "<tr><th>Restaurant ID</th><th>Cuisine Type</th><th>Price Range</th><th>Vegetarian</th><th>Gluten Free</th><th>Vegan</th></tr>";  // Customize columns
+        echo "<tr><th>Restaurant ID</th><th>Cuisine Type</th><th>Price Range</th><th>Vegetarian</th><th>Gluten Free</th><th>Vegan</th></tr>";  
 
         if ($result->num_rows > 0) {
             // Output each row
@@ -203,17 +220,23 @@ if (isset($_POST['search']) && !empty($_POST[searchRestaurant])) {
       <button class="button menu" type="button" onclick="window.location.href='add.php?type=hours';">Add restaraunt hours</button>
       <button class="button menu" type="button" onclick="window.location.href='add.php?type=menu';">Add a menu</button>
       <button class="button menu" type="button" onclick="window.location.href='review.php';">Add a Review</button>
-
       <br>
       <button class="button menu" type="button" onclick="window.location.href='find.php?type=hours';">Find Open Restaraunts</button>
       <button class="button menu" type="button" onclick="window.location.href='find.php?type=city';">Find restaraunts by city</button>
       <button class="button menu" type="button" onclick="window.location.href='search.php';">Search For Restaurants</button>
       <button class="button menu" type="button" onclick="window.location.href='add.php?type=remove';" >Remove a restaraunt</button>
     </div>
-<br><br>
-    
-    </div>
     <br><br>
+    
+  </div>
+  <div class="image-container">
+  <img src="fayetteville.png" alt="Fayetteville" width="256px" height="144px">
+    <div class="overlay-text">Fayetteville</div>
+  <img src="bentonville.jpg" alt="Bentonville" width="256px" height="144px">
+    <div class="overlay-text">Bentonville</div>
+  </div>
+
+
 </body>
 
 </html>
