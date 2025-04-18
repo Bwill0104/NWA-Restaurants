@@ -34,12 +34,13 @@ void odbc_db::disConnect()
 // and print the resulting relation
 string odbc_db::query(string q) 
 {
+   cout << "Q: " << q << endl;
    string builder = ""; 
    try 
    {
       resultSet = statement->executeQuery(q);
       builder.append("<br>---------------------------------<br>");
-      // builder.append("Query: <br>" + q + "<br><br>Result: ");
+      builder.append("Query: <br>" + q + "<br><br>Result: ");
       builder.append(print(resultSet));
    }
    catch (sql::SQLException e) 

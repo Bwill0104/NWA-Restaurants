@@ -4,30 +4,10 @@ $type = $_GET['type'] ?? '';
 <html>
 
 <head>
+<link rel="stylesheet" href="styles.css">
   <style>
-    body {
-        background-color: #ffb766;
-        /* background-image: url('restaraunt.jpg'); */
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
-    }
+ 
 
-
-.button {
-      background-color: #555555; /* Green */
-      border: none;
-      color: white;
-      padding: 8px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-    }
 .content {
       margin: auto;
       max-width: 200px;
@@ -74,72 +54,27 @@ $type = $_GET['type'] ?? '';
       display: none;
       margin-top: 10px;
     }
-    .table-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* fills the full screen height */
-}
+
 
 </style>
     </head>
 
 <body>
+<div class="nav-bar">
+        <div class="links">
+            <a href="home.php?type=tableRest">Restaurant Table</a>
+            <a href="home.php?type=tableHours">Hours Table</a>
+            <a href="home.php?type=tableMenu">Menu Table</a>
+        </div>
+    <h1><a href="home.php">NWA Restaraunts</a></h1>
 
-    <div class="content">
-
-
-        <div class="city">
-            <h1>Find Restaraunts by city</h1>
-
-            <form action="find.php?type=city" method="post">
-            <?php $test = 'restaurant'; ?>
-                Enter city: <input type="text" name="city"><br><br>
-                <input name="submitCity" type="submit" >
+        <div class="search-bar">
+            <form action="home.php" method="post">
+                <input type="text" name="searchRestaurant" placeholder="Search...">
+                <input name="search" type="submit" value="Search">
             </form>
         </div>
-
-        
-
-        <div class="hours">
-            <h1>Find Open Restaraunts</h1>
-            <form action="find.php?type=hours" method="post">
-
-            <!-- USER ENTERS TIME -->
-            <div id="timeInput">
-            <label for="manualTime">Enter time (hh:mm):</label>
-            <input type="text" id="manualTime" name="manualTime"><br>
-            <input type="checkbox" id="AM" name="hours[]" value="AM">
-            <label for="AM">AM</label>
-            <input type="checkbox" id="PM" name="hours[]" value="PM">
-            <label for="PM">PM</label><br>
-            <input name="submitTime" type="submit" >
-            </div>
-
-            <?php $test = 'hours'; ?>
-              <div id="hoursButtons" >
-                <input type="submit" name="current" value="Use current time">
-                <input type="submit" name="enter" value="Enter a time" onclick="showInputBox(event)">
-               </div>  
-            </form>
-        </div>
-
-        <button class="button back" type="button" onclick="window.location.href='home.php';" >Back</button>
-    </div>
-
-</body>
-
-<script>
-  function showInputBox(event) {
-    event.preventDefault(); // prevent form submission if inside a form
-    document.getElementById('timeInput').style.display = 'block';
-    document.getElementById('hoursButtons').style.display = 'none';
-
-  }
-</script>
-
-</html>
-
+    </div> 
 <?php
 
 // FIND BY CITY
@@ -164,7 +99,9 @@ if (isset($_POST['submitCity']))
     echo "<table border='1'>";
     echo "$output<br>";
     echo "</table>";
+    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
     echo "</div>";
+    echo "<style> .content{ display: none} </style>";
 }
 
 // FIND BY RATING
@@ -189,7 +126,9 @@ if (isset($_POST['submitRating']))
     echo "<table border='1'>";
     echo "$output<br>";
     echo "</table>";
+    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
     echo "</div>";
+    echo "<style> .content{ display: none} </style>";
 }
 
 if (isset($_POST['submitTime']) || isset($_POST['current'])) 
@@ -223,7 +162,58 @@ if (isset($_POST['submitTime']) || isset($_POST['current']))
     echo "<table border='1'>";
     echo "$output<br>";
     echo "</table>";
+    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
     echo "</div>";
+    echo "<style> .content{ display: none} </style>";
+    
 }
 
 ?>
+
+    <div class="content">
+        <div class="city">
+            <h1>Find Restaraunts by city</h1>
+
+            <form action="find.php?type=city" method="post">
+            <?php $test = 'restaurant'; ?>
+                Enter city: <input type="text" name="city"><br><br>
+                <input name="submitCity" type="submit" >
+            </form>
+        </div>
+        <div class="hours">
+            <h1>Find Open Restaraunts</h1>
+            <form action="find.php?type=hours" method="post">
+
+            <!-- USER ENTERS TIME -->
+            <div id="timeInput">
+            <label for="manualTime">Enter time (hh:mm):</label>
+            <input type="text" id="manualTime" name="manualTime"><br>
+            <input type="checkbox" id="AM" name="hours[]" value="AM">
+            <label for="AM">AM</label>
+            <input type="checkbox" id="PM" name="hours[]" value="PM">
+            <label for="PM">PM</label><br>
+            <input name="submitTime" type="submit" >
+            </div>
+            <?php $test = 'hours'; ?>
+              <div id="hoursButtons" >
+                <input type="submit" name="current" value="Use current time">
+                <input type="submit" name="enter" value="Enter a time" onclick="showInputBox(event)">
+               </div>  
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+  function showInputBox(event) {
+    event.preventDefault(); // prevent form submission if inside a form
+    document.getElementById('timeInput').style.display = 'block';
+    document.getElementById('hoursButtons').style.display = 'none';
+
+  }
+</script>
+
+</html>
+

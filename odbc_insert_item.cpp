@@ -95,7 +95,13 @@ void findByCity(odbc_db myDB, vector <string> values)
    string rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants WHERE Restaurants.city = '" + city + "';";
 
 
-   cout << myDB.print(myDB.rawQuery(rawQuery));
+   string result = myDB.print(myDB.rawQuery(rawQuery));
+   if(result.length() == 0){
+      cout << "No restaurants found" << endl;
+   }
+   else{
+      cout << result;
+   }
 
 }
 
@@ -163,10 +169,17 @@ int findByTime(odbc_db myDB, vector <string> values)
     else if (minutes > 900) { // After 3:00 PM
         rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants "
                    "JOIN Hours ON Restaurants.restaurantID = Hours.restaurantID "
-                   "WHERE Hours.openDinner = 'yes';";     
+                   "WHERE Hours.openDinner = 'yes';";
+         cout << "Restaurant Open for Dinner:" << endl;     
     }
 
-   cout << myDB.print(myDB.rawQuery(rawQuery));
+   string result = myDB.print(myDB.rawQuery(rawQuery));
+   if(result.length() == 0){
+      cout << "No restaurants found" << endl;
+   }
+   else{
+      cout << result;
+   }
    
 }
 
@@ -177,7 +190,13 @@ void searchBar(odbc_db myDB, vector <string> values)
 
    string rawQuery = "SELECT * from Restaurants WHERE Restaurants.name = '" + restName + "';";
 
-   cout << myDB.print(myDB.rawQuery(rawQuery));
+   string result = myDB.print(myDB.rawQuery(rawQuery));
+   if(result.length() == 0){
+      cout << "No restaurants found" << endl;
+   }
+   else{
+      cout << result;
+   }
 }
 
 // SERACH FOR SPECIFIC RESTAURANT
@@ -188,21 +207,45 @@ void search(odbc_db myDB, vector <string> values)
    string gluten = values[2];
    string vegan = values[3];
 
-   
-
-   string rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address, Restaurants.rating FROM Restaurants"
-                     "JOIN Hours on Restaurants.restaurantID = Hours.restaurantID"
-                     "JOIN Menu on Menu.restaurantID = Restaurants.restaurantID"
-                     "WHERE Hours.openBreak = '" + meal + "' AND "
+   string rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address, Restaurants.rating FROM Restaurants "
+                     "JOIN Hours on Restaurants.restaurantID = Hours.restaurantID "
+                     "JOIN Menu on Menu.restaurantID = Restaurants.restaurantID "
+                     "WHERE Hours." + meal + " = 'yes' AND "
                      "Menu.isVegetarian = '" + vegetarian + "' AND "
                      "Menu.isGlutenFree = '" + gluten + "' AND "
                      "Menu.isVegan = '" + vegan + "';";
 
-   cout << myDB.print(myDB.rawQuery(rawQuery));
-}SELECT Restaurants.name, Restaurants.city, Restaurants.address, Restaurants.rating
-FROM Restaurants
-JOIN Hours ON Restaurants.restaurantID = Hours.restaurantID
-JOIN Menu ON Menu.restaurantID = Restaurants.restaurantID
+   string result = myDB.print(myDB.rawQuery(rawQuery));
+   if(result.length() == 0){
+      cout << "No restaurants found" << endl;
+   }
+   else{
+      cout << result;
+   }
+   
+}
+
+// EDIT RATING OF RESTAURANT
+void review(odbc_db myDB, vector <string> values) 
+{
+   string rest_id = values[0];
+   string ratingString = values[1];
+   int newRating = stoi(ratingString);
+
+
+   stringstream ss;
+   ss << "UPDATE Restaurants "
+      << "SET rating = (rating + " << newRating << ") / 2 "
+      << "WHERE restaurantID = " << rest_id << ";";
+   string rawQuery = ss.str();
+   string checkQuery = "SELECT * FROM Restaurants;";
+
+   myDB.rawQuery(rawQuery);
+   // string result = myDB.print(myDB.rawQuery(checkQuery));
+  
+   // cout << result;
+   
+}
 
 
 
@@ -254,6 +297,10 @@ int main(int argc, char *argv[])
    else if(queryType == "search"){
       search(myDB, values);
    }
+   else if(queryType == "review"){
+      review(myDB, values);
+   }
+
 
    return 0;
 }

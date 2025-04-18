@@ -1,73 +1,92 @@
 <html>
 <head>
-    <style>
+<link rel="stylesheet" href="styles.css">
+<style>
 
-        body {
-            background-color: #ffb766;
-            /* background-image: url('restaraunt.jpg'); */
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
-        }
-        h1 {
-            color: white;
-        }
+  
 
-        .content {
-            margin: auto;
-            max-width: 1000px;
-            scroll-behavior: smooth;
-        }
+    .content {
+        margin: auto;
+        width: 30%;
+        scroll-behavior: smooth;
+    }
 
-        .nav-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            padding: 10px 20px;
-            border-radius: 8px;
-        }
-        label {
-            color: white;
-            padding:  10px;
-            font-size: 20px
-        }
+    .select {
+        background-color: #333;
+        padding: 10px 20px;
+        border-radius: 8px;
+        width: 300px;
+    }
+    
+    label {
+        color: white;
+        font-size: 20px
+    }
+    .submit-container {
+        display: flex;
+        justify-content: flex-end;
+        padding: 10px 20px; 
+    }
 
-
- 
-    </style>
+</style>
 </head>
+
+
 <body>
+    <div class="nav-bar">
+        <div class="links">
+            <a href="home.php?type=tableRest">Restaurant Table</a>
+            <a href="home.php?type=tableHours">Hours Table</a>
+            <a href="home.php?type=tableMenu">Menu Table</a>
+        </div>
+    <h1><a href="home.php">NWA Restaraunts</a></h1>
+
+        <div class="search-bar">
+            <form action="home.php" method="post">
+                <input type="text" name="searchRestaurant" placeholder="Search...">
+                <input name="search" type="submit" value="Search">
+            </form>
+        </div>
+    </div> 
     <div class="content">
         
-        <div class="nav-bar">
+        <div class="select">
+            <h1>Select your options</h1>
         <form action="search.php" method="post">
-        <label for="meal">Choose a Meal:</label>
-            <select name="meal" id="meal">
-                <option value="breakfast">Breakfast</option>
-                <option value="lunch">Lunch</option>
-                <option value="dinner">Dinner</option>
-            </select>
+            <div style="margin-bottom: 10px;">
+            <label for="meal">Choose a Meal:</label>
+                <select name="meal" id="meal">
+                    <option value="openBreak">Breakfast</option>
+                    <option value="openLunch">Lunch</option>
+                    <option value="openDinner">Dinner</option>
+                </select>
+        </div>
+            <div style="margin-bottom: 10px;">
         <label for="vegetarian">Vegetarian</label>
             <select name="vegetarian" id="vegetarian">
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
             </select>
+            </div>
+            <div style="margin-bottom: 10px;">
         <label for="gluten">Gluten Free</label>
             <select name="gluten" id="gluten">
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
             </select>
+            </div>
+            <div style="margin-bottom: 10px;">
         <label for="vegan">Vegan</label>
             <select name="vegan" id="vegan">
                 <option value="yes">Yes</option>
                 <option value="no">No</option>
             </select>
+            </div>
         
 
-            <br><br>
-            <input name="submit" type="submit" value="Submit">
+            <div class="submit-container">
+                <input name="submit" type="submit" value="Submit">
+            </div>
         </form>
         </div>
     </div>
@@ -88,7 +107,7 @@ if (isset($_POST['submit']))
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$meal. ' ' .$vegetarian. ' ' .$gluten. ' ' .$vegan;
 
-    echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
 
     // Run the command
@@ -100,6 +119,8 @@ if (isset($_POST['submit']))
     echo "<table border='1'>";
     echo "$output<br>";
     echo "</table>";
+    echo "<button class='button bac' type='button' onclick=\"window.location.href='home.php';\">Back</button>";
     echo "</div>";
+    echo "<style> .content{ display: none} </style>";
 }
 ?>

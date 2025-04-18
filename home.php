@@ -16,15 +16,7 @@ if ($conn->connect_error) {
 
 <html>
 <style>
-    body {
-        background-color: #ffb766
-        /* background-image: url('restaraunt.jpg'); */
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-attachment: fixed;
-        background-position: center;
-        
-    }
+   
 h1{
   color: white
 }
@@ -39,6 +31,7 @@ h1{
     background-color: #333;
     padding: 10px 20px;
     border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .nav-bar a {
@@ -76,6 +69,7 @@ h1{
       max-width: 200px;
       scroll-behavior: smooth;
   }
+
 .tables {
   max-width: 500px;
   margin: auto;
@@ -229,27 +223,7 @@ h1{
         ?>
   </div>
 
-
-  <div class="content">
-    <div class="menu-box">
-      <button class="button menu" type="button" onclick="window.location.href='add.php?type=restaurant';"  >Add a restaraunt</button>
-      <button class="button menu" type="button" onclick="window.location.href='add.php?type=hours';">Add restaraunt hours</button>
-      <button class="button menu" type="button" onclick="window.location.href='add.php?type=menu';">Add a menu</button>
-      <br>
-      <button class="button menu" type="button" onclick="window.location.href='find.php?type=hours';">Find Open Restaraunts</button>
-      <button class="button menu" type="button">Query menu options</button>
-      <button class="button menu" type="button" onclick="window.location.href='find.php?type=city';">Find restaraunts by city</button>
-      <button class="button menu" type="button" onclick="window.location.href='search.php';">Search For Restaurants</button>
-      <button class="button menu" type="button" onclick="window.location.href='add.php?type=remove';" >Remove a restaraunt</button>
-    </div>
-<br><br>
-    
-    </div>
-    <br><br>
-</body>
-</html>
-
-<?php
+  <?php
 
 if (isset($_POST['search']) && !empty($_POST[searchRestaurant])) {
   $query = escapeshellarg("searchBar");
@@ -263,11 +237,36 @@ if (isset($_POST['search']) && !empty($_POST[searchRestaurant])) {
 
   // Debugging
   // echo "Return code: $retVal<br>";
-  echo "<div class='table-wrapper'>";
+  echo "<div style='margin-bottom: 30px'; class='table-wrapper'>";
   echo "<table border='1'>";
   echo "$output<br>";
   echo "</table>";
   echo "</div>";
+  echo "<style> .menu-box{ display: none} </style>";
+
  
 }
 ?>
+
+
+  <div class="content">
+    <div class="menu-box">
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=restaurant';"  >Add a restaraunt</button>
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=hours';">Add restaraunt hours</button>
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=menu';">Add a menu</button>
+      <button class="button menu" type="button" onclick="window.location.href='review.php';">Add a Review</button>
+
+      <br>
+      <button class="button menu" type="button" onclick="window.location.href='find.php?type=hours';">Find Open Restaraunts</button>
+      <button class="button menu" type="button" onclick="window.location.href='find.php?type=city';">Find restaraunts by city</button>
+      <button class="button menu" type="button" onclick="window.location.href='search.php';">Search For Restaurants</button>
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=remove';" >Remove a restaraunt</button>
+    </div>
+<br><br>
+    
+    </div>
+    <br><br>
+</body>
+
+</html>
+
