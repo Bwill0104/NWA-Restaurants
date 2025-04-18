@@ -39,7 +39,7 @@ string odbc_db::query(string q)
    {
       resultSet = statement->executeQuery(q);
       builder.append("<br>---------------------------------<br>");
-      builder.append("Query: <br>" + q + "<br><br>Result: ");
+      // builder.append("Query: <br>" + q + "<br><br>Result: ");
       builder.append(print(resultSet));
    }
    catch (sql::SQLException e) 

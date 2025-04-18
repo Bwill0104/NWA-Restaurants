@@ -1,10 +1,24 @@
-<html>
+<?php
+$type = $_GET['type'] ?? '';
+$servername = "localhost";
+$username = "bryanw";
+$password = "Chooc8ai";
+$database = "bryanw";
 
- 
+// Create connection
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+<html>
 <style>
     body {
         background-color: #ffb766
-        background-image: url('restaraunt.jpg');
+        /* background-image: url('restaraunt.jpg'); */
         background-repeat: no-repeat;
         background-size: cover;
         background-attachment: fixed;
@@ -62,6 +76,14 @@ h1{
       max-width: 200px;
       scroll-behavior: smooth;
   }
+.tables {
+  max-width: 500px;
+  margin: auto;
+  padding-bottom: 50px;
+  padding-top: 10px;
+
+}
+
 
 .button {
   background-color: #555555; /* Green */
@@ -91,32 +113,129 @@ h1{
   background-color: #555555;
   display: "none";
 }
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start; /* align to top */
+  padding-top: 20px;
+  position: relative; /* not absolute */
+  height: auto;
+}
 </style>
 <body>
     <div class="nav-bar">
         <div class="links">
-            <!-- <a href="home.php">Home</a> -->
-            <a href="add.php?type=restaurant">Add Restaurant</a>
-            <a href="add.php?type=hours">Add restaraunt hours</a>
-            <a href="add.php?type=menu">Add a menu</a>
+            <a href="home.php?type=tableRest">Restaurant Table</a>
+            <a href="home.php?type=tableHours">Hours Table</a>
+            <a href="home.php?type=tableMenu">Menu Table</a>
         </div>
-    <h1>NWA Restaraunts</h1>
+    <h1><a href="home.php">NWA Restaraunts</a></h1>
 
         <div class="search-bar">
-            <form action="search.php" method="get">
-                <input type="text" name="q" placeholder="Search...">
-                <input type="submit" value="Go">
+            <form action="home.php" method="post">
+                <input type="text" name="searchRestaurant" placeholder="Search...">
+                <input name="search" type="submit" value="Search">
             </form>
         </div>
     </div>  
 
 
+    <div class="tables" >
+    <?php
+      // PRINT RESTAURANT TABLE
+      if ($type === 'tableRest')
+      {
+          $sql = "SELECT * FROM Restaurants";
+          $result = $conn->query($sql);
+
+          echo "<table border='1'>";
+          echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  // Customize columns
+
+          if ($result->num_rows > 0) {
+              // Output each row
+              while($row = $result->fetch_assoc()) {
+                  echo "<tr>";
+                  echo "<td>" . $row["restaurantID"] . "</td>";  // Adjust column names
+                  echo "<td>" . $row["name"] . "</td>";
+                  echo "<td>" . $row["city"] . "</td>";
+                  echo "<td>" . $row["address"] . "</td>";  // Adjust column names
+                  echo "<td>" . $row["rating"] . "</td>";
+                  echo "</tr>";
+              }
+          } else {
+              echo "<tr><td colspan='3'>No results</td></tr>";
+          }
+          echo "</table>";
+
+          $conn->close();
+      }
+
+      // PRINT HOURS TABLE
+      else if ($type === 'tableHours')
+      {
+          $sql = "SELECT * FROM Hours";
+          $result = $conn->query($sql);
+
+          echo "<table border='1'>";
+          echo "<tr><th>Restaurant ID</th><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Dinner</th></tr>";  // Customize columns
+
+          if ($result->num_rows > 0) {
+              // Output each row
+              while($row = $result->fetch_assoc()) {
+                  echo "<tr>";
+                  echo "<td>" . $row["restaurantID"] . "</td>";  
+                  echo "<td>" . $row["day"] . "</td>";
+                  echo "<td>" . $row["openBreak"] . "</td>";
+                  echo "<td>" . $row["openLunch"] . "</td>";  
+                  echo "<td>" . $row["openDinner"] . "</td>";
+                  echo "</tr>";
+              }
+          } else {
+              echo "<tr><td colspan='3'>No results</td></tr>";
+          }
+          echo "</table>";
+
+          $conn->close();
+      }
+
+      // PRINT HOURS TABLE
+      else if ($type === 'tableMenu')
+      {
+        $sql = "SELECT * FROM Menu";
+        $result = $conn->query($sql);
+
+        echo "<table border='1'>";
+        echo "<tr><th>Restaurant ID</th><th>Cuisine Type</th><th>Price Range</th><th>Vegetarian</th><th>Gluten Free</th><th>Vegan</th></tr>";  // Customize columns
+
+        if ($result->num_rows > 0) {
+            // Output each row
+            while($row = $result->fetch_assoc()) {
+                echo "<tr>";
+                echo "<td>" . $row["restaurantID"] . "</td>";  
+                echo "<td>" . $row["cuisineType"] . "</td>";
+                echo "<td>" . $row["priceRange"] . "</td>";
+                echo "<td>" . $row["isVegetarian"] . "</td>";  
+                echo "<td>" . $row["isGlutenFree"] . "</td>";
+                echo "<td>" . $row["isVegan"] . "</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='3'>No results</td></tr>";
+        }
+        echo "</table>";
+
+        $conn->close();
+      }
+        ?>
+  </div>
+
+
   <div class="content">
     <div class="menu-box">
-      <!-- <button class="button menu" type="button" onclick="window.location.href='add.php?type=restaurant';"  >Add a restaraunt</button>
+      <button class="button menu" type="button" onclick="window.location.href='add.php?type=restaurant';"  >Add a restaraunt</button>
       <button class="button menu" type="button" onclick="window.location.href='add.php?type=hours';">Add restaraunt hours</button>
       <button class="button menu" type="button" onclick="window.location.href='add.php?type=menu';">Add a menu</button>
-      <br> -->
+      <br>
       <button class="button menu" type="button" onclick="window.location.href='find.php?type=hours';">Find Open Restaraunts</button>
       <button class="button menu" type="button">Query menu options</button>
       <button class="button menu" type="button" onclick="window.location.href='find.php?type=city';">Find restaraunts by city</button>
@@ -132,22 +251,23 @@ h1{
 
 <?php
 
-if (isset($_POST['submit'])) 
-{
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
-    $rest_id = escapeshellarg($_POST[rest_id]);
-    $name = escapeshellarg($_POST[name]);
-    $city = escapeshellarg($_POST[city]);
-    $address = escapeshellarg($_POST[address]);
-    $rating = escapeshellarg($_POST[rating]);
+if (isset($_POST['search']) && !empty($_POST[searchRestaurant])) {
+  $query = escapeshellarg("searchBar");
+  $name = escapeshellarg($_POST[searchRestaurant]);
 
-    $command = '/home/bryanw/public_html/project_cpp/odbc_insert_item.exe ' . $rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
+  $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query . ' ' . $name;
 
-    echo '<p>' . 'command: ' . $command . '<p>';
-    // remove dangerous characters from command to protect web server
-    $command = escapeshellcmd($command);
+  // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+
+  $output = shell_exec($command);
+
+  // Debugging
+  // echo "Return code: $retVal<br>";
+  echo "<div class='table-wrapper'>";
+  echo "<table border='1'>";
+  echo "$output<br>";
+  echo "</table>";
+  echo "</div>";
  
-    // run odbc_insert_item.exe
-    system($command);           
 }
 ?>

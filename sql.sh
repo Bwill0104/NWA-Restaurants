@@ -20,7 +20,7 @@ INSERT INTO Restaurants (restaurantID, name, city, address, rating) VALUES (0116
 INSERT INTO Restaurants (restaurantID, name, city, address, rating)  VALUES (0601,'The Preacher''s Son', 'Bentonville', '201 NW A st', 4.4 );
 INSERT INTO Restaurants (restaurantID, name, city, address, rating)  VALUES (0630,'Feed and Folly', 'Fayetteville', '110 S College Ave', 4.1 );
 INSERT INTO Restaurants (restaurantID, name, city, address, rating)  VALUES (0319,'The Rail', 'Rogers', '218 S 1st st', 4.5 );
-INSERT INTO Restaurants (restaurantID, name, city, address, rating)  VALUES (0715, 'Homegrown', 'Springgdale', '202 E Emma Ave', 4.7 );
+INSERT INTO Restaurants (restaurantID, name, city, address, rating)  VALUES (0715, 'Homegrown', 'Springdale', '202 E Emma Ave', 4.7 );
 INSERT INTO Restaurants (restaurantID, name, city, address, rating)  VALUES (0809, 'Waffle House', 'Centerton', '960 E Centerton Blvd', 4.2 );
 SELECT * FROM Restaurants;
 

@@ -270,7 +270,7 @@ if (isset($_POST['submitRest']))
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_insert_item.exe ' . $query. ' ' .$rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-    system('chmod o+x odbc_insert_item.exe');
+   
     system('chmod 755 odbc_insert_item.exe');
 
     // Run the command
@@ -332,8 +332,6 @@ else if (isset($_POST['submitHours']))
    
 
     // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-    system('chmod o+x odbc_insert_item.exe');
-    system('chmod 755 odbc_insert_item.exe');
 
     // Run the command
     $output = system($command, $retVal); 

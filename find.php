@@ -74,6 +74,12 @@ $type = $_GET['type'] ?? '';
       display: none;
       margin-top: 10px;
     }
+    .table-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* fills the full screen height */
+}
 
 </style>
     </head>
@@ -150,11 +156,15 @@ if (isset($_POST['submitCity']))
     system('chmod 755 odbc_insert_item.exe');
 
     // Run the command
-    $output = system($command, $retVal);
+    $output = shell_exec($command);
     
     // Display results
     // echo "Return code: $retVal<br>";
-    // echo "Output: $output<br>";
+    echo "<div class='table-wrapper'>";
+    echo "<table border='1'>";
+    echo "$output<br>";
+    echo "</table>";
+    echo "</div>";
 }
 
 // FIND BY RATING
@@ -171,11 +181,15 @@ if (isset($_POST['submitRating']))
     system('chmod 755 odbc_insert_item.exe');
 
     // Run the command
-    $output = system($command, $retVal);
+    $output = shell_exec($command);
     
     // Display results
     // echo "Return code: $retVal<br>";
-    // echo "Output: $output<br>";
+    echo "<div class='table-wrapper'>";
+    echo "<table border='1'>";
+    echo "$output<br>";
+    echo "</table>";
+    echo "</div>";
 }
 
 if (isset($_POST['submitTime']) || isset($_POST['current'])) 
@@ -201,11 +215,15 @@ if (isset($_POST['submitTime']) || isset($_POST['current']))
     system('chmod 755 odbc_insert_item.exe');
 
     // Run the command
-    $output = system($command, $retVal);
+    $output = shell_exec($command);
     
     // Display results
     // echo "Return code: $retVal<br>";
-    // echo "Output: $output<br>";
+    echo "<div class='table-wrapper'>";
+    echo "<table border='1'>";
+    echo "$output<br>";
+    echo "</table>";
+    echo "</div>";
 }
 
 ?>

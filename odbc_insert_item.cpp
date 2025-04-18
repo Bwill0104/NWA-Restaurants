@@ -30,8 +30,8 @@ void add_restaurant(odbc_db myDB, vector <string> values)
    myDB.insert("Restaurants", input);    // insert new restaurant
  
    //For debugging purposes: Show the database after insert
-   string builder = "<br><br><br> Table Restaurants after:" + myDB.query("SELECT * from Restaurants;") +"<br>";
-   cout << builder; 
+   // string builder = "<br><br><br> Table Restaurants after:" + myDB.query("SELECT * from Restaurants;") +"<br>";
+   // cout << builder; 
        
    myDB.disConnect();//disconect Database
 }
@@ -54,8 +54,8 @@ void add_hours(odbc_db myDB, vector <string> values)
    myDB.insert("Hours", input);    // insert new restaurant
  
    //For debugging purposes: Show the database after insert
-   string builder = "<br><br><br> Table Hours after:" + myDB.query("SELECT * from Hours;") +"<br>";
-   cout << builder; 
+   // string builder = "<br><br><br> Table Hours after:" + myDB.query("SELECT * from Hours;") +"<br>";
+   // cout << builder; 
        
    myDB.disConnect();//disconect Database
 }
@@ -81,8 +81,8 @@ void add_menu(odbc_db myDB, vector <string> values)
    myDB.insert("Menu", input);    // insert new restaurant
  
    //For debugging purposes: Show the database after insert
-   string builder = "<br><br><br> Table Menu after:" + myDB.query("SELECT * from Menu;") +"<br>";
-   cout << builder; 
+   // string builder = "<br><br><br> Table Menu after:" + myDB.query("SELECT * from Menu;") +"<br>";
+   // cout << builder; 
        
    myDB.disConnect();//disconect Database
 }
@@ -92,7 +92,7 @@ void findByCity(odbc_db myDB, vector <string> values)
 {
    string city = values[0];
 
-   string rawQuery = "SELECT Restaurants.name FROM Restaurants WHERE Restaurants.city = '" + city + "';";
+   string rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants WHERE Restaurants.city = '" + city + "';";
 
 
    cout << myDB.print(myDB.rawQuery(rawQuery));
@@ -163,13 +163,46 @@ int findByTime(odbc_db myDB, vector <string> values)
     else if (minutes > 900) { // After 3:00 PM
         rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants "
                    "JOIN Hours ON Restaurants.restaurantID = Hours.restaurantID "
-                   "WHERE Hours.openDinner = 'yes';";
-         cout << "Restaurant Open for Dinner:" << endl;
+                   "WHERE Hours.openDinner = 'yes';";     
     }
 
    cout << myDB.print(myDB.rawQuery(rawQuery));
    
 }
+
+// USED SEARCH BAR
+void searchBar(odbc_db myDB, vector <string> values) 
+{
+   string restName = values[0];
+
+   string rawQuery = "SELECT * from Restaurants WHERE Restaurants.name = '" + restName + "';";
+
+   cout << myDB.print(myDB.rawQuery(rawQuery));
+}
+
+// SERACH FOR SPECIFIC RESTAURANT
+void search(odbc_db myDB, vector <string> values) 
+{
+   string meal = values[0];
+   string vegetarian = values[1];
+   string gluten = values[2];
+   string vegan = values[3];
+
+   
+
+   string rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address, Restaurants.rating FROM Restaurants"
+                     "JOIN Hours on Restaurants.restaurantID = Hours.restaurantID"
+                     "JOIN Menu on Menu.restaurantID = Restaurants.restaurantID"
+                     "WHERE Hours.openBreak = '" + meal + "' AND "
+                     "Menu.isVegetarian = '" + vegetarian + "' AND "
+                     "Menu.isGlutenFree = '" + gluten + "' AND "
+                     "Menu.isVegan = '" + vegan + "';";
+
+   cout << myDB.print(myDB.rawQuery(rawQuery));
+}SELECT Restaurants.name, Restaurants.city, Restaurants.address, Restaurants.rating
+FROM Restaurants
+JOIN Hours ON Restaurants.restaurantID = Hours.restaurantID
+JOIN Menu ON Menu.restaurantID = Restaurants.restaurantID
 
 
 
@@ -185,6 +218,8 @@ int main(int argc, char *argv[])
    myDB.initDatabase();
 
    std::vector<std::string> values;
+
+   
    
    string queryType = argv[1];
 
@@ -193,7 +228,6 @@ int main(int argc, char *argv[])
    }
 
    // cout << queryType ;
-
 
    if(queryType == "restaurant"){
       
@@ -213,6 +247,12 @@ int main(int argc, char *argv[])
    }
    else if(queryType == "time"){
       findByTime(myDB, values);
+   }
+   else if(queryType == "searchBar"){
+      searchBar(myDB, values);
+   }
+   else if(queryType == "search"){
+      search(myDB, values);
    }
 
    return 0;
