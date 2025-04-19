@@ -15,6 +15,7 @@ h1{
   max-width: 200px;
   scroll-behavior: smooth;
 }
+
   <?php if ($type === 'city'): ?>
           .city {
           /* background-color: #555555; */
@@ -62,7 +63,7 @@ h1{
     </head>
 
 <body>
-<div class="nav-bar">
+<div class="nav-bar" style="margin-bottom: 0px;z-index: 2;">
         <div class="links">
             <a href="home.php?type=tableRest">Restaurant Table</a>
             <a href="home.php?type=tableHours">Hours Table</a>
@@ -76,6 +77,13 @@ h1{
                 <input name="search" type="submit" value="Search">
             </form>
         </div>
+    </div>
+    <div class="section-with-background">
+      <img src="nwa-find.jpg" alt="Northwest Arkansas" width="100%" height="70%"/>
+      <div class="text-block">
+        <h1 >Find Restaurants</h1>
+        <p>Discover restaurants wherever you are, whenever you need them</p>
+      </div>
     </div> 
 <?php
 
@@ -146,37 +154,39 @@ if (isset($_POST['submitTime']) || isset($_POST['current']))
 ?>
 
     <div class="content">
-        <div class="city">
-            <h1>Find Restaraunts by city</h1>
+      <div class="city">
+          <h1>Find Restaraunts by city</h1>
 
-            <form action="find.php?type=city" method="post">
-            <?php $test = 'restaurant'; ?>
-                Enter city: <input type="text" name="city"><br><br>
-                <input class="button" name="submitCity" type="submit" >
-            </form>
-        </div>
-        <div class="hours">
-            <h1>Find Open Restaraunts</h1>
-            <form action="find.php?type=hours" method="post">
+          <form action="find.php?type=city" method="post">
+          <?php $test = 'restaurant'; ?>
+              Enter city: <input type="text" name="city"><br><br>
+              <input class="button" name="submitCity" type="submit" >
+          </form>
+      </div>
+      <div class="hours">
+          <h1>Find Open Restaraunts</h1>
+          <form action="find.php?type=hours" method="post">
 
-            <!-- USER ENTERS TIME -->
-            <div id="timeInput">
-            <label for="manualTime">Enter time (hh:mm):</label>
-            <input type="text" id="manualTime" name="manualTime"><br>
-            <input type="checkbox" id="AM" name="hours[]" value="AM">
-            <label for="AM">AM</label>
-            <input type="checkbox" id="PM" name="hours[]" value="PM">
-            <label for="PM">PM</label><br>
-            <input name="submitTime" type="submit" >
-            </div>
-            <?php $test = 'hours'; ?>
-              <div id="hoursButtons" >
-                <input class="button" type="submit" name="current" value="Use current time">
-                <input class="button" type="submit" name="enter" value="Enter a time" onclick="showInputBox(event)">
-               </div>  
-            </form>
-        </div>
+          <!-- USER ENTERS TIME -->
+          <div id="timeInput">
+          <label for="manualTime">Enter time (hh:mm):</label>
+          <input type="text" id="manualTime" name="manualTime"><br>
+          <input type="checkbox" id="AM" name="hours[]" value="AM">
+          <label for="AM">AM</label>
+          <input type="checkbox" id="PM" name="hours[]" value="PM">
+          <label for="PM">PM</label><br>
+          <input name="submitTime" type="submit" >
+          </div>
+          <?php $test = 'hours'; ?>
+            <div id="hoursButtons" >
+              <input class="button" type="submit" name="current" value="Use current time">
+              <input class="button" type="submit" name="enter" value="Enter a time" onclick="showInputBox(event)">
+              </div>  
+          </form>
+      </div>
+    </div>
 
+    <div style="padding-bottom: 300px">
     </div>
 
 </body>

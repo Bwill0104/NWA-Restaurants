@@ -61,17 +61,7 @@ input[type=text]:focus {
     transition-duration: 0.4s;
     cursor: pointer;
   }
-  .form-container {
-  position: relative;
-  height: 600px; /* or whatever height you want */
-}
 
-.form-container > div {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
     <?php if ($type === 'restaurant'): ?>
           .restaurant {
           /* background-color: #555555; */

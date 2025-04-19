@@ -1,3 +1,7 @@
+html, body {
+    margin: 0;
+    padding: 0;
+  }
 body{
     background-color: #f1f1f1;
 }
@@ -30,8 +34,8 @@ padding: 5px;
     align-items: center;
     background-color: #333;
     padding: 10px 20px;
-    border-radius: 8px;
     margin-bottom: 20px;
+    
 }
 
 .nav-bar a {
@@ -69,50 +73,92 @@ padding: 5px;
 h1 {
     color: white;
 }
-
+.form-container {
+    position: relative;
+    height: 600px; /* or whatever height you want */
+  }
+  
+  .form-container > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 
 .button {
-      background-color: #555555; /* Green */
-      border: none;
-      color: white;
-      padding: 8px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-    }
-.button:hover {
-    color:   #ffb766;
+    background-color: #555555; 
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
-    input[type=text] {
-      margin: 8px 0;
-      box-sizing: border-box;
-      border: 3px solid #555;
-      -webkit-transition: 0.5s;
-      transition: 0.5s;
-      outline: none;
-    }
+.button:hover {
+    color: #ffb766;
+}
 
-    input[type=text]:focus {
-      border: 3px solid #ffb766;
+input[type=text] {
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #555;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 3px solid #ffb766;
+}
+.table-wrapper {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+    padding-top: 40px;  
+}
+.review-wrapper{
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    flex-direction: column;
+}
+.form-container {
+    position: relative;
+    height: 600px; 
+}
+.form-container > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+.section-with-background {
+    margin-top: 0;
+    padding-top: 0;
+    position: relative;
+    top: -10px; 
+    z-index: -1;
     }
-    .table-wrapper {
-        display: flex;
-        justify-content: center; 
-        align-items: center;
-        flex-direction: column;
-        padding-top: 40px; /* adjust as needed */
-    }
-    .form-container {
-        position: relative;
-        height: 600px; /* or whatever height you want */
-      }
-      .form-container > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-      }
+    .text-block {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffb766;
+   
+  }
+  
+  .text-block h1,p{
+    color: white;
+    margin-left: 50px;
+  }
+  .text-block p{
+    font-size: larger;
+  }
+  

@@ -1,5 +1,15 @@
 <?php
+session_start();
 $type = $_GET['type'] ?? '';
+
+if (!isset($_SESSION['reviews'])) {
+  $_SESSION['reviews'] = []; // initialize as empty array
+}
+$reviews = $_SESSION['reviews'];
+
+
+
+
 $servername = "localhost";
 $username = "bryanw";
 $password = "Chooc8ai";
@@ -119,7 +129,8 @@ h1{
                 <input name="search" type="submit" value="Search">
             </form>
         </div>
-    </div>  
+    </div>
+    
 
 
     <div class="tables" >
@@ -215,6 +226,7 @@ h1{
 
       if (isset($_POST['search']) && !empty($_POST[searchRestaurant])) {
         $query = escapeshellarg("searchBar");
+        $rawName = $_POST[searchRestaurant];
         $name = escapeshellarg($_POST[searchRestaurant]);
 
         $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query . ' ' . $name;
@@ -225,12 +237,29 @@ h1{
 
         // Debugging
         // echo "Return code: $retVal<br>";
+
+        // DISPLAYS THE RESTAURANTS WITH SEARCH NAME
         echo "<div style='margin-bottom: 30px'; class='table-wrapper'>";
         echo "<table border='1'>";
         echo "$output<br>";
         echo "</table>";
         echo "</div>";
         echo "<style> .menu-box{ display: none} </style>";
+        echo "<style> .section{ display: none} </style>";
+
+
+        // DISPLAYS THE REVIEWS FOR THE SEARCH RESTAURANT IF THERE ARE ANY
+        echo '<div style="text-align: center;">';
+        echo '<h1 style="color: black;"><u><strong>Restaurant Reviews</strong></u></h1>';
+        if (!empty($reviews[$rawName])) {
+            foreach ($reviews[$rawName] as $x) {
+                echo "<p style='color: black;'>\"$x\"</p>";
+            }
+        } else {
+            echo "<p style='color: gray;'>No reviews yet for <strong>$rawName</strong>.</p>";
+        }
+
+        echo '</div>';
 
       
       }
@@ -310,6 +339,7 @@ h1{
             </form>
         </div>
         <!-- ROGERS BUTTON END -->
+        <!-- SPRINGDALE BUTTON BEGIN -->
         <div class="col-6">
           <form method="post" action="find.php?type=city">
             <input type="hidden" name="city" value="Springdale">
@@ -323,15 +353,14 @@ h1{
             </button>
           </form>
         </div>
+        <!-- SPRINGDALE BUTTON BEGIN -->
       </div>
+      <p style="color: #f1f1f1; ">From cozy cafes and family-owned diners to upscale dining and hidden gems, our platform makes it simple to browse local 
+        favorites based on hours, cuisine, and location. With real-time updates and an intuitive design, you can spend less 
+        time searching and more time enjoying great food. Wherever you are in NWA, let us guide your next delicious adventure.</p>
     <div>
   </div>
 
-  <div class="col-6">
-  <p style="color: #f1f1f1; ">From cozy cafes and family-owned diners to upscale dining and hidden gems, our platform makes it simple to browse local 
-  favorites based on hours, cuisine, and location. With real-time updates and an intuitive design, you can spend less 
-  time searching and more time enjoying great food. Wherever you are in NWA, let us guide your next delicious adventure.</p>
-  </div>
 
 
 

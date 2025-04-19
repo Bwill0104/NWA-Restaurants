@@ -1,9 +1,21 @@
 <?php
+session_start();
+if (!isset($_SESSION['reviews'])) {
+    $_SESSION['reviews'] = []; // initialize as empty array
+}
+
+// Assign session reviews to a local variable (for easier handling)
+$reviews = $_SESSION['reviews'];
+
+
+
 $type = $_GET['type'] ?? '';
 $servername = "localhost";
 $username = "bryanw";
 $password = "Chooc8ai";
 $database = "bryanw";
+
+
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
@@ -128,6 +140,11 @@ if ($conn->connect_error) {
                     </div>
 
                     <div style="margin-bottom: 15px;">
+                        <label for="rest_name">Enter the restaurant name:</label><br>
+                        <input type="text" id="rest_name" name="rest_name">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
                         <label for="review">Write a Review:</label><br>
                         <textarea id="review" name="review" rows="5" cols="40"></textarea>
                     </div>
@@ -204,4 +221,33 @@ if (isset($_POST['submit'])) {
 
 
 }
+
+if (isset($_POST['submit'])) {
+    $rest_name = $_POST[rest_name];
+    $cutomerReview = $_POST[review];
+
+
+    if (!isset($reviews[$rest_name])) {
+        $reviews[$rest_name] = [];
+      }
+    $reviews[$rest_name][] = $cutomerReview;
+    $_SESSION['reviews'] = $reviews;
+    // print_r($reviews[$rest_id]);
+
+   
+    // session_unset();
+
+
+    
+
+  
+    $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query . ' ' . $rest_id. ' ' . $rating;
+  
+  //   echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
+  
+    $output = shell_exec($command);
+  
+  
+  }
+
 ?>
