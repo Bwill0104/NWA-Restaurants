@@ -13,7 +13,7 @@ restaurantID int,
 name CHAR(25) NOT NULL,
 city CHAR(25) NOT NULL,
 address CHAR(40) NOT NULL,
-rating int,
+rating DEC(2,1),
 PRIMARY KEY(restaurantID)
 );
 INSERT INTO Restaurants (restaurantID, name, city, address, rating) VALUES (0116, 'Texas Roadhouse', 'Rogers', '2922 S 26th st', 4.4);

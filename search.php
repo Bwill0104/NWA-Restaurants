@@ -49,45 +49,42 @@
         </div>
     </div> 
     <div class="content">
-        
         <div class="select">
             <h1>Select your options</h1>
-        <form action="search.php" method="post">
-            <div style="margin-bottom: 10px;">
-            <label for="meal">Choose a Meal:</label>
-                <select name="meal" id="meal">
-                    <option value="openBreak">Breakfast</option>
-                    <option value="openLunch">Lunch</option>
-                    <option value="openDinner">Dinner</option>
-                </select>
-        </div>
-            <div style="margin-bottom: 10px;">
-        <label for="vegetarian">Vegetarian</label>
-            <select name="vegetarian" id="vegetarian">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            </div>
-            <div style="margin-bottom: 10px;">
-        <label for="gluten">Gluten Free</label>
-            <select name="gluten" id="gluten">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            </div>
-            <div style="margin-bottom: 10px;">
-        <label for="vegan">Vegan</label>
-            <select name="vegan" id="vegan">
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
-            </select>
-            </div>
-        
-
-            <div class="submit-container">
-                <input name="submit" type="submit" value="Submit">
-            </div>
-        </form>
+            <form action="search.php" method="post">
+                <div style="margin-bottom: 10px;">
+                    <label for="meal">Choose a Meal:</label>
+                        <select name="meal" id="meal">
+                            <option value="openBreak">Breakfast</option>
+                            <option value="openLunch">Lunch</option>
+                            <option value="openDinner">Dinner</option>
+                        </select>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label for="vegetarian">Vegetarian</label>
+                        <select name="vegetarian" id="vegetarian">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label for="gluten">Gluten Free</label>
+                        <select name="gluten" id="gluten">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <label for="vegan">Vegan</label>
+                        <select name="vegan" id="vegan">
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                </div>
+                <div class="submit-container">
+                    <input name="submit" type="submit" value="Submit">
+                </div>
+            </form>
         </div>
     </div>
 </body>

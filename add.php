@@ -32,9 +32,7 @@ h1 {
 
   .content {
         margin: auto;
-        scroll-behavior: smooth;
-        margin-left: 40%;
-
+    
         
   }
   input[type=text] {
@@ -73,8 +71,6 @@ input[type=text]:focus {
   top: 0;
   left: 0;
   width: 100%;
-
-  
 }
     <?php if ($type === 'restaurant'): ?>
           .restaurant {
@@ -154,6 +150,8 @@ input[type=text]:focus {
     </div> 
 
 <div class="content">
+    <div class="row">
+    <div class="col-8">
     <!-- PRINT THE RESTAURANT TABLE -->
     <?php
         $sql = "SELECT * FROM Restaurants";
@@ -180,112 +178,115 @@ input[type=text]:focus {
 
         $conn->close();
     ?>  
-
-    <div class="form-container">
-
-      <div class="restaurant">
-          <h1 >Add a restaurant</h1>
-          <form action="add.php?type=restaurant" method="post">
-          <?php $test = 'restaurant'; ?>
-              Restaurant ID: <input  type="text" name="rest_id"><br><br>
-              Name: <input type="text" name="name"><br><br>
-              City: <input type="text" name="city"><br><br>
-              Address: <input type="text" name="address"><br><br>
-              Rating: <input type="text" name="rating"><br><br>
-              <input class="button" name="submitRest" type="submit" >
-          </form>
-      </div>
-
-      <div class="hours">
-          <h1>Add hours</h1>
-          <form action="add.php?type=hours" method="post">
-              Restaurant ID: <input type="text" name="rest_id"><br><br>
-              Days: 
-              <input type="checkbox" id="M" name="days[]" value="M">
-              <label for="M"> M</label>
-              <input type="checkbox" id="T" name="days[]" value="T">
-              <label for="T"> T</label>
-              <input type="checkbox" id="W" name="days[]" value="W">
-              <label for="W"> W</label>
-              <input type="checkbox" id="Th" name="days[]" value="Th">
-              <label for="Th"> Th</label>
-              <input type="checkbox" id="F" name="days[]" value="F">
-              <label for="F"> F</label>
-              <input type="checkbox" id="S" name="days[]" value="S">
-              <label for="S"> S</label>
-              <input type="checkbox" id="Su" name="days[]" value="Su">
-              <label for="Su"> S</label><br><br>
-
-              Open for Breakfast: 
-              <input type="radio" id="yes" name="openBreak" value="yes">
-              <label for="yes">Yes</label>
-              <input type="radio" id="no" name="openBreak" value="no">
-              <label for="no">No</label><br><br>
-                                
-              Open for Lunch: 
-              <input type="radio" id="yes" name="openLunch" value="yes">
-              <label for="yes">Yes</label>
-              <input type="radio" id="no" name="openLunch" value="no">
-              <label for="no">No</label><br><br>
-
-              Open for Dinner: 
-              <input type="radio" id="yes" name="openDinner" value="yes">
-              <label for="yes">Yes</label>
-              <input type="radio" id="no" name="openDinner" value="no">
-              <label for="no">No</label><br><br>
-
-
-              <input class="button" name="submitHours" type="submit" >
-          </form>
-      </div>
-
-      <div class="menu">
-          <h1>Add a menu</h1>
-          <form action="add.php?type=menu" method="post">
-              Restaurant ID: <input type="text" name="rest_id"><br><br>
-              Cuisine Type: <input type="text" name="cuisineType"><br><br>
-              Price range: 
-              <input type="radio" id="low" name="priceRange" value="low">
-              <label for="yes">Low</label>
-              <input type="radio" id="med" name="priceRange" value="med">
-              <label for="no">Med</label>
-              <input type="radio" id="high" name="priceRange" value="high">
-              <label for="no">High</label><br><br>
-
-              Is vegetaian: 
-              <input type="radio" id="yes" name="isVegetarian" value="yes">
-              <label for="yes">Yes</label>
-              <input type="radio" id="no" name="isVegetarian" value="no">
-              <label for="no">No</label><br><br>
-
-              Is gluten free: 
-              <input type="radio" id="yes" name="isGlutenFree" value="yes">
-              <label for="yes">Yes</label>
-              <input type="radio" id="no" name="isGlutenFree" value="no">
-              <label for="no">No</label><br><br>
-
-
-              Is vegan: 
-              <input type="radio" id="yes" name="isVegan" value="yes">
-              <label for="yes">Yes</label>
-              <input type="radio" id="no" name="isVegan" value="no">
-              <label for="no">No</label><br><br>
-              <input class="button" name="submitMenu" type="submit" >
-          </form>
-      </div>
-
-      <div class="remove">
-          <h1>Remove a restaurant</h1>
-          <form action="add.php?type=remove" method="post">
-              Restaurant ID: <input type="text" name="rest_id"><br>
-              Name: <input type="text" name="name"><br>
-              <input class="button" name="remove" type="submit" >
-          </form>
-      
-      </div>
-
     </div>
-    
+
+    <div class="col-4">
+      <div class="form-container">
+
+        <div class="restaurant">
+            <h1 >Add a restaurant</h1>
+            <form action="add.php?type=restaurant" method="post">
+            <?php $test = 'restaurant'; ?>
+                Restaurant ID: <input  type="text" name="rest_id"><br><br>
+                Name: <input type="text" name="name"><br><br>
+                City: <input type="text" name="city"><br><br>
+                Address: <input type="text" name="address"><br><br>
+                Rating: <input type="text" name="rating"><br><br>
+                <input class="button" name="submitRest" type="submit" >
+            </form>
+        </div>
+
+        <div class="hours">
+            <h1>Add hours</h1>
+            <form action="add.php?type=hours" method="post">
+                Restaurant ID: <input type="text" name="rest_id"><br><br>
+                Days: 
+                <input type="checkbox" id="M" name="days[]" value="M">
+                <label for="M"> M</label>
+                <input type="checkbox" id="T" name="days[]" value="T">
+                <label for="T"> T</label>
+                <input type="checkbox" id="W" name="days[]" value="W">
+                <label for="W"> W</label>
+                <input type="checkbox" id="Th" name="days[]" value="Th">
+                <label for="Th"> Th</label>
+                <input type="checkbox" id="F" name="days[]" value="F">
+                <label for="F"> F</label>
+                <input type="checkbox" id="S" name="days[]" value="S">
+                <label for="S"> S</label>
+                <input type="checkbox" id="Su" name="days[]" value="Su">
+                <label for="Su"> S</label><br><br>
+
+                Open for Breakfast: 
+                <input type="radio" id="yes" name="openBreak" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="openBreak" value="no">
+                <label for="no">No</label><br><br>
+                                  
+                Open for Lunch: 
+                <input type="radio" id="yes" name="openLunch" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="openLunch" value="no">
+                <label for="no">No</label><br><br>
+
+                Open for Dinner: 
+                <input type="radio" id="yes" name="openDinner" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="openDinner" value="no">
+                <label for="no">No</label><br><br>
+
+
+                <input class="button" name="submitHours" type="submit" >
+            </form>
+        </div>
+
+        <div class="menu">
+            <h1>Add a menu</h1>
+            <form action="add.php?type=menu" method="post">
+                Restaurant ID: <input type="text" name="rest_id"><br><br>
+                Cuisine Type: <input type="text" name="cuisineType"><br><br>
+                Price range: 
+                <input type="radio" id="low" name="priceRange" value="low">
+                <label for="yes">Low</label>
+                <input type="radio" id="med" name="priceRange" value="med">
+                <label for="no">Med</label>
+                <input type="radio" id="high" name="priceRange" value="high">
+                <label for="no">High</label><br><br>
+
+                Is vegetaian: 
+                <input type="radio" id="yes" name="isVegetarian" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="isVegetarian" value="no">
+                <label for="no">No</label><br><br>
+
+                Is gluten free: 
+                <input type="radio" id="yes" name="isGlutenFree" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="isGlutenFree" value="no">
+                <label for="no">No</label><br><br>
+
+
+                Is vegan: 
+                <input type="radio" id="yes" name="isVegan" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" id="no" name="isVegan" value="no">
+                <label for="no">No</label><br><br>
+                <input class="button" name="submitMenu" type="submit" >
+            </form>
+        </div>
+
+        <div class="remove">
+            <h1>Remove a restaurant</h1>
+            <form action="add.php?type=remove" method="post">
+                Restaurant ID: <input type="text" name="rest_id"><br>
+                Name: <input type="text" name="name"><br>
+                <input class="button" name="remove" type="submit" >
+            </form>
+        
+        </div>
+
+      </div>
+    </div>
+  </div>
 </div>
 
 </body>
@@ -313,6 +314,8 @@ if (isset($_POST['submitRest']))
 
     // Run the command
     $output = system($command, $retVal);
+
+
     
     // Display results
     // echo "Return code: $retVal<br>";

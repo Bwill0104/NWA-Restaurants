@@ -25,8 +25,7 @@ if ($conn->connect_error) {
 
     .content {
         margin: auto;
-        scroll-behavior: smooth;
-        margin-left: 40%;
+  
     }
 
     label {
@@ -90,99 +89,102 @@ if ($conn->connect_error) {
     </div> 
      
     <div class="content">
-    
-<!-- PRINT THE RESTAURANT TABLE -->
-<?php
-            $sql = "SELECT * FROM Restaurants";
-            $result = $conn->query($sql);
+        <div class="row">
+            <div class="col-8">
+                <!-- PRINT THE RESTAURANT TABLE -->
+                <?php
+                    $sql = "SELECT * FROM Restaurants";
+                    $result = $conn->query($sql);
 
-            echo "<table border='1'>";
-            echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  // Customize columns
+                    echo "<table border='1'>";
+                    echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  // Customize columns
 
-            if ($result->num_rows > 0) {
-                // Output each row
-                while($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["restaurantID"] . "</td>";  // Adjust column names
-                    echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["city"] . "</td>";
-                    echo "<td>" . $row["address"] . "</td>";  // Adjust column names
-                    echo "<td>" . $row["rating"] . "</td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='3'>No results</td></tr>";
-            }
-            echo "</table>";
+                    if ($result->num_rows > 0) {
+                        // Output each row
+                        while($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row["restaurantID"] . "</td>";  // Adjust column names
+                            echo "<td>" . $row["name"] . "</td>";
+                            echo "<td>" . $row["city"] . "</td>";
+                            echo "<td>" . $row["address"] . "</td>";  // Adjust column names
+                            echo "<td>" . $row["rating"] . "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='3'>No results</td></tr>";
+                    }
+                    echo "</table>";
 
-            $conn->close();
-    ?>
-   <div class="form-container">
-        
-    <form action="review.php" method="post">
-        <div style="margin-bottom: 15px;">
-            <label for="rest_id">Enter the restaurant ID:</label><br>
-            <input type="text" id="rest_id" name="rest_id">
+                    $conn->close();
+                ?>
+            </div>
+            <div class="col-4">
+                <div class="form-container">
+                    
+                <form action="review.php" method="post">
+                    <div style="margin-bottom: 15px;">
+                        <label for="rest_id">Enter the restaurant ID:</label><br>
+                        <input type="text" id="rest_id" name="rest_id">
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <label for="review">Write a Review:</label><br>
+                        <textarea id="review" name="review" rows="5" cols="40"></textarea>
+                    </div>
+
+                    <input type="hidden" id="rating" name="rating" value="0">
+                    <span onclick="gfg(1)"
+                        class="star">★
+                    </span>
+                    <span onclick="gfg(2)"
+                        class="star">★
+                    </span>
+                    <span onclick="gfg(3)"
+                        class="star">★
+                    </span>
+                    <span onclick="gfg(4)"
+                        class="star">★
+                    </span>
+                    <span onclick="gfg(5)"
+                        class="star">★
+                    </span>
+                    <br><br>
+
+                    <input class="button"name="submit" type="submit" value="Submit">
+                </form>
+                    <br><br>
+                <script>
+                    let stars = document.getElementsByClassName("star");
+                    let output = document.getElementsByClassName("output");
+                    
+                    
+                    // Funtion to update rating
+                    function gfg(n) {
+                        remove();
+                        for (let i = 0; i < n; i++) {
+                            if (n == 1) cls = "one";
+                            else if (n == 2) cls = "two";
+                            else if (n == 3) cls = "three";
+                            else if (n == 4) cls = "four";
+                            else if (n == 5) cls = "five";
+                            stars[i].className = "star " + cls;
+                            
+                        }
+                        document.getElementById("rating").value = n;
+                    }
+                    
+                    // To remove the pre-applied styling
+                    function remove() {
+                        let i = 0;
+                        while (i < 5) {
+                            stars[i].className = "star";
+                            i++;
+                        }
+                    }
+                </script>
+            </div>
+            </div>
         </div>
-
-        <div style="margin-bottom: 15px;">
-            <label for="review">Write a Review:</label><br>
-            <textarea id="review" name="review" rows="5" cols="40"></textarea>
-        </div>
-
-        <input type="hidden" id="rating" name="rating" value="0">
-        <span onclick="gfg(1)"
-              class="star">★
-        </span>
-        <span onclick="gfg(2)"
-              class="star">★
-        </span>
-        <span onclick="gfg(3)"
-              class="star">★
-        </span>
-        <span onclick="gfg(4)"
-              class="star">★
-        </span>
-        <span onclick="gfg(5)"
-              class="star">★
-        </span>
-        <br><br>
-
-        <input class="button"name="submit" type="submit" value="Submit">
-    </form>
-        <br><br>
-    <script>
-        let stars = document.getElementsByClassName("star");
-        let output = document.getElementsByClassName("output");
-        
-        
-        // Funtion to update rating
-        function gfg(n) {
-            remove();
-            for (let i = 0; i < n; i++) {
-                if (n == 1) cls = "one";
-                else if (n == 2) cls = "two";
-                else if (n == 3) cls = "three";
-                else if (n == 4) cls = "four";
-                else if (n == 5) cls = "five";
-                stars[i].className = "star " + cls;
-                
-            }
-            document.getElementById("rating").value = n;
-        }
-        
-        // To remove the pre-applied styling
-        function remove() {
-            let i = 0;
-            while (i < 5) {
-                stars[i].className = "star";
-                i++;
-            }
-        }
-    </script>
-
-    </div>
-
     </div>
 </body>
 </html>
