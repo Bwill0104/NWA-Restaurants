@@ -140,13 +140,12 @@ input[type=text]:focus {
     </div> 
 
 <div class="content">
-    <div class="row">
-    <div class="col-8">
+  <div class="row">
+    <div class="col-8" style="margin-left: 20px">
     <!-- PRINT THE RESTAURANT TABLE -->
     <?php
         $sql = "SELECT * FROM Restaurants";
         $result = $conn->query($sql);
-
         echo "<table border='1'>";
         echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  // Customize columns
 
