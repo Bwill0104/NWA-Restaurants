@@ -13,7 +13,11 @@ using namespace std;
 
 // ADD A RESTAURANT
 void add_restaurant(odbc_db myDB, vector <string> values)
-{
+{  
+   if (values.size() < 5) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    // Parse input string to get restaurant Name and Type and  City
    string rest_id = values[0];
    string name = values[1];
@@ -21,24 +25,21 @@ void add_restaurant(odbc_db myDB, vector <string> values)
    string address = values[3];
    string rating = values[4];
 
-
    // Insert the new restaurant
    string input = "'" + rest_id + "','" + name + "','" + city + "','" + address + "','" + rating + "'";
 
-   // DEBUG:
-   // printf("%s", input.c_str());
    myDB.insert("Restaurants", input);    // insert new restaurant
- 
-   //For debugging purposes: Show the database after insert
-   // string builder = "<br><br><br> Table Restaurants after:" + myDB.query("SELECT * from Restaurants;") +"<br>";
-   // cout << builder; 
        
-   myDB.disConnect();//disconect Database
+   myDB.disConnect(); //disconect Database
 }
 
 // ADD RESTAURANT HOURS
 void add_hours(odbc_db myDB, vector <string> values)
 {
+   if (values.size() < 5) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    // Parse input string to get restaurant Name and Type and  City
    string rest_id = values[0];
    string days = values[1];
@@ -49,51 +50,44 @@ void add_hours(odbc_db myDB, vector <string> values)
    // Insert the new restaurant
    string input = "'" + rest_id + "','" + days + "','" + openBreak + "','" + openLunch + "','" + openDinner + "'";
 
-   // DEBUG:
-   // printf("%s", input.c_str());
-   myDB.insert("Hours", input);    // insert new restaurant
- 
-   //For debugging purposes: Show the database after insert
-   // string builder = "<br><br><br> Table Hours after:" + myDB.query("SELECT * from Hours;") +"<br>";
-   // cout << builder; 
+   myDB.insert("Hours", input); // insert new restaurant
        
-   myDB.disConnect();//disconect Database
+   myDB.disConnect(); // disconect Database
 }
 
 // ADD A MENU
 void add_menu(odbc_db myDB, vector <string> values)
 {
+    if (values.size() < 5) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    // Parse input string to get restaurant Name and Type and  City
    string rest_id = values[0];
    string cuisineType = values[1];
-   string priceRange = values[2]; // CAST TO INT
+   string priceRange = values[2]; 
    string isVegetarian = values[3];
    string isGlutenFree = values[4];
-   string isVegan = values[4];
-
-   
+   string isVegan = values[5];
 
    // Insert the new restaurant
    string input = "'" + rest_id + "','" + cuisineType + "','" + priceRange + "','" + isVegetarian + "','" + isGlutenFree + + "','" + isVegan + "'";
 
-   // DEBUG:
-   // printf("%s", input.c_str());
-   myDB.insert("Menu", input);    // insert new restaurant
+   myDB.insert("Menu", input); // insert new restaurant
  
-   //For debugging purposes: Show the database after insert
-   // string builder = "<br><br><br> Table Menu after:" + myDB.query("SELECT * from Menu;") +"<br>";
-   // cout << builder; 
-       
-   myDB.disConnect();//disconect Database
+   myDB.disConnect(); // disconect Database
 }
 
 // FIND RESTAURANT BY CITY
 void findByCity(odbc_db myDB, vector <string> values)
 {
+   if (values.size() < 1) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    string city = values[0];
 
    string rawQuery = "SELECT Restaurants.name, Restaurants.city, Restaurants.address FROM Restaurants WHERE Restaurants.city = '" + city + "';";
-
 
    string result = myDB.print(myDB.rawQuery(rawQuery));
    if(result.length() == 0){
@@ -102,15 +96,17 @@ void findByCity(odbc_db myDB, vector <string> values)
    else{
       cout << result;
    }
-
 }
 
 // REMOVE A RESTAURANT
 void remove_restaurant(odbc_db myDB, vector <string> values)
 {
+   if (values.size() < 2) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    string rest_id = values[0];
    string name = values[1];
-
 
    if(rest_id.length() == 0) myDB.remove("Restaurants", "name", name);
    else if(name.length() == 0) myDB.remove("Restaurants", "restaurantID", rest_id);
@@ -129,9 +125,14 @@ int timeStringToMinutes(const string& timeStr) {
    return tm.tm_hour * 60 + tm.tm_min;
 }
 
-// FIND BY OPEN TIME
+// FIND BY OPEN TIMES
 int findByTime(odbc_db myDB, vector <string> values)
 {
+   if (values.size() < 3) {
+    cerr << "Error: Not enough arguments." << endl;
+    return -1;
+   }
+   //
    string first = values[0];
    string second = values[1];
    string third = values[2];
@@ -147,9 +148,9 @@ int findByTime(odbc_db myDB, vector <string> values)
       timeToUse = first + " " + second;
    }
 
-    int minutes = timeStringToMinutes(timeToUse);
+   int minutes = timeStringToMinutes(timeToUse);
 
-   // ERROR
+   // INVALID TIME FORMAT ERROR
     if (minutes == -1) {
         cout << "Invalid time format" << endl;
         return 1;
@@ -180,12 +181,16 @@ int findByTime(odbc_db myDB, vector <string> values)
    else{
       cout << result;
    }
-   
+   myDB.disConnect();//disconect Database
 }
 
 // USED SEARCH BAR
 void searchBar(odbc_db myDB, vector <string> values) 
 {
+   if (values.size() < 1) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    string restName = values[0];
 
    string rawQuery = "SELECT * from Restaurants WHERE Restaurants.name = '" + restName + "';";
@@ -197,11 +202,16 @@ void searchBar(odbc_db myDB, vector <string> values)
    else{
       cout << result;
    }
+   myDB.disConnect();//disconect Database
 }
 
 // SERACH FOR SPECIFIC RESTAURANT
 void search(odbc_db myDB, vector <string> values) 
 {
+   if (values.size() < 4) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    string meal = values[0];
    string vegetarian = values[1];
    string gluten = values[2];
@@ -222,16 +232,19 @@ void search(odbc_db myDB, vector <string> values)
    else{
       cout << result;
    }
-   
+   myDB.disConnect();//disconect Database
 }
 
 // EDIT RATING OF RESTAURANT
 void review(odbc_db myDB, vector <string> values) 
 {
+   if (values.size() < 2) {
+    cerr << "Error: Not enough arguments." << endl;
+    return;
+   }
    string rest_id = values[0];
    string ratingString = values[1];
    int newRating = stoi(ratingString);
-
 
    stringstream ss;
    ss << "UPDATE Restaurants "
@@ -241,10 +254,8 @@ void review(odbc_db myDB, vector <string> values)
    string checkQuery = "SELECT * FROM Restaurants;";
 
    myDB.rawQuery(rawQuery);
-   // string result = myDB.print(myDB.rawQuery(checkQuery));
   
-   // cout << result;
-   
+   myDB.disConnect();//disconect Database
 }
 
 
@@ -259,16 +270,16 @@ int main(int argc, char *argv[])
    myDB.initDatabase();
 
    std::vector<std::string> values;
+   if (argc < 2) {
+    cerr << "Usage: ./odbc <queryType> <params...>" << endl;
+    return 1;
+   }
 
-   
-   
    string queryType = argv[1];
 
    for(int i = 2; i < argc; i++){
       values.push_back(argv[i]);
    }
-
-   // cout << queryType ;
 
    if(queryType == "restaurant"){
       
@@ -298,7 +309,6 @@ int main(int argc, char *argv[])
    else if(queryType == "review"){
       review(myDB, values);
    }
-
 
    return 0;
 }

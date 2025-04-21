@@ -102,7 +102,7 @@ if ($conn->connect_error) {
      
     <div class="content">
         <div class="row">
-            <div class="col-8">
+            <div class="col-8" style="margin-left: 20px">
                 <!-- PRINT THE RESTAURANT TABLE -->
                 <?php
                     $sql = "SELECT * FROM Restaurants";

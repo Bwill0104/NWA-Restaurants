@@ -360,14 +360,6 @@ h1{
         time searching and more time enjoying great food. Wherever you are in NWA, let us guide your next delicious adventure.</p>
     <div>
   </div>
-
-
-
-
-
-
-
-
 <div>
 
   

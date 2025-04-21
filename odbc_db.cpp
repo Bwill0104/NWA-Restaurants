@@ -196,10 +196,6 @@ void odbc_db::initDatabase()
    {
       // Drop records from existing tables here
       statement = connection->createStatement();
-
-
-
-
    }
    catch (sql::SQLException &e)
    {
