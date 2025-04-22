@@ -85,7 +85,7 @@ $reviews = $_SESSION['reviews'];
         </div>
     </div>
     <div class="section-with-background">
-      <img src="bville-search2.webp" alt="Northwest Arkansas" width="100%" height="70%"/>
+      <img src="imgs/bville-search2.webp" alt="Northwest Arkansas" width="100%" height="70%"/>
       <div class="text-block">
         <h1 >Find Your Taste</h1>
         <p>Restaurants tailored to your needs and wants</p>

@@ -291,7 +291,7 @@ h1{
             <input type="hidden" name="city" value="Fayetteville">
             <button type="submit" name="submitCity" style="border: none; background: none; padding: 0; cursor: pointer;">
               <div class="image-wrapper">
-                <img src="fayetteville.png" alt="Fayetteville" width="256" height="144">
+                <img src="imgs/fayetteville.png" alt="Fayetteville" width="256" height="144">
                 <div class="overlay">
                   <div class="overlay-text">Fayetteville</div>
                 </div>
@@ -306,7 +306,7 @@ h1{
             <input type="hidden" name="city" value="Bentonville">
             <button type="submit" name="submitCity" style="border: none; background: none; padding: 0; cursor: pointer;">
               <div class="image-wrapper">
-                <img src="bentonville.jpg" alt="Bentonville" width="256" height="144">
+                <img src="imgs/bentonville.jpg" alt="Bentonville" width="256" height="144">
                 <div class="overlay">
                   <div class="overlay-text">Bentonville</div>
                 </div>
@@ -330,7 +330,7 @@ h1{
               <input type="hidden" name="city" value="Rogers">
               <button type="submit" name="submitCity" style="border: none; background: none; padding: 0; cursor: pointer;">
                 <div class="image-wrapper">
-                  <img src="rogers.jpg" alt="Rogers" width="256" height="144">
+                  <img src="imgs/rogers.jpg" alt="Rogers" width="256" height="144">
                   <div class="overlay">
                     <div class="overlay-text">Rogers</div>
                   </div>
@@ -345,7 +345,7 @@ h1{
             <input type="hidden" name="city" value="Springdale">
             <button type="submit" name="submitCity" style="border: none; background: none; padding: 0; cursor: pointer;">
               <div class="image-wrapper">
-                <img src="springdale.jpg" alt="Springdale" width="256" height="144">
+                <img src="imgs/springdale.jpg" alt="Springdale" width="256" height="144">
                 <div class="overlay">
                   <div class="overlay-text">Springdale</div>
                 </div>

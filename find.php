@@ -79,7 +79,7 @@ h1{
         </div>
     </div>
     <div class="section-with-background">
-      <img src="nwa-find.jpg" alt="Northwest Arkansas" width="100%" height="70%"/>
+      <img src="imgs/nwa-find.jpg" alt="Northwest Arkansas" width="100%" height="70%"/>
       <div class="text-block">
         <h1 >Find Restaurants</h1>
         <p>Discover restaurants wherever you are, whenever you need them</p>
