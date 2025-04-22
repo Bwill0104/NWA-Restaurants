@@ -1,6 +1,8 @@
-hi jesss hope youre doing well
-
-
-Hey Jess! Hope youre having a beautiful day. If you want to see it, go to https://csce.uark.edu/~bryanw/NWA-Restaurants/home.php
-
+1.  chmod 755 sql.bash
+2. chmod 755 build_odbc.bash
+3. run ./build_odbc.bash
+4. For the websites you can go to:
+https://csce.uark.edu/~jam122/NWA-Restaurants/home.php
+or 
+https://csce.uark.edu/~bryanw/NWA-Restaurants/home.php
 
