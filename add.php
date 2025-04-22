@@ -49,7 +49,7 @@ input[type=text]:focus {
 }
 
   .button {
-    background-color: #555555; /* Green */
+    background-color: #555555; 
     border: none;
     color: white;
     padding: 8px 20px;
@@ -64,7 +64,6 @@ input[type=text]:focus {
 
     <?php if ($type === 'restaurant'): ?>
           .restaurant {
-          /* background-color: #555555; */
           display: block;
         }
           .hours {
@@ -81,7 +80,6 @@ input[type=text]:focus {
           display: none;
         }
           .hours {
-          /* background-color: #fcd995; */
           display: block;
         }
         .menu {
@@ -98,7 +96,6 @@ input[type=text]:focus {
           display: none;
         }
         .menu {
-          /* background-color: #555555; */
           display: block;
         }
         .remove{
@@ -147,16 +144,15 @@ input[type=text]:focus {
         $sql = "SELECT * FROM Restaurants";
         $result = $conn->query($sql);
         echo "<table border='1'>";
-        echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  // Customize columns
+        echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  
 
         if ($result->num_rows > 0) {
-            // Output each row
             while($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $row["restaurantID"] . "</td>";  // Adjust column names
+                echo "<td>" . $row["restaurantID"] . "</td>";  
                 echo "<td>" . $row["name"] . "</td>";
                 echo "<td>" . $row["city"] . "</td>";
-                echo "<td>" . $row["address"] . "</td>";  // Adjust column names
+                echo "<td>" . $row["address"] . "</td>";  
                 echo "<td>" . $row["rating"] . "</td>";
                 echo "</tr>";
             }
@@ -287,7 +283,6 @@ input[type=text]:focus {
 if (isset($_POST['submitRest'])) 
 {
    if ($type === 'restaurant')
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
     $query = escapeshellarg("restaurant");
     $rest_id = escapeshellarg($_POST[rest_id]);
     $name = escapeshellarg($_POST[name]);
@@ -297,25 +292,18 @@ if (isset($_POST['submitRest']))
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$rest_id . ' ' . $name . ' ' . $city. ' ' . $address. ' ' .$rating;
 
-    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-   
     system('chmod 755 odbc_query.exe');
 
     // Run the command
     $output = system($command, $retVal);
 
-
-    
-    // Display results
-    // echo "Return code: $retVal<br>";
-    // echo "Output: $output<br>";
+   
 }
 
 // ADD HOURS
 else if (isset($_POST['submitHours'])) 
 {
     # THE RESTAURANT HAS TO ALREADY BE IN THE RESTAURANT TABLE TO ADD ITS HOURS
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
     $query = escapeshellarg("hours");
     $rest_id = escapeshellarg($_POST[rest_id]);
     $days = escapeshellarg($_POST[days]);
@@ -325,11 +313,9 @@ else if (isset($_POST['submitHours']))
 
     // DAY OPTIONS
     if (!empty($_POST['days'])) {
-      $selectedDays = $_POST['days']; // this is an array
+      $selectedDays = $_POST['days'];
 
-      // You can also implode them into a single string if needed
       $daysString = implode(",", $selectedDays);
-      // echo "All selected days: $daysString";
       } else {
           echo "No days selected.";
       }
@@ -337,7 +323,6 @@ else if (isset($_POST['submitHours']))
     // DOES IT HAVE BREAKFAST
     if (isset($_POST['openBreak'])) {
         $isBreakfast = $_POST['openBreak'];
-        // echo "Breakfast selected: " . htmlspecialchars($isBreakfast);
       } else {
           echo "No breakfast option selected.";
       }
@@ -345,7 +330,6 @@ else if (isset($_POST['submitHours']))
     // DOES IT HAVE LUNCH
     if (isset($_POST['openLunch'])) {
       $isLunch = $_POST['openLunch'];
-      // echo "Lunch selected: " . htmlspecialchars($isLunch);
       } else {
           echo "No lunch option selected.";
       }
@@ -353,7 +337,6 @@ else if (isset($_POST['submitHours']))
     // DOES IT HAVE DINNER
     if (isset($_POST['openDinner'])) {
       $isDinner = $_POST['openDinner'];
-      // echo "Dinner selected: " . htmlspecialchars($isDinner);
       } else {
           echo "No dinner option selected.";
       }
@@ -361,20 +344,16 @@ else if (isset($_POST['submitHours']))
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' '. $rest_id . ' ' . $daysString . ' ' . $isBreakfast. ' ' . $isLunch. ' ' .$isDinner;
    
 
-    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
     // Run the command
     $output = system($command, $retVal); 
     
-    // For debugging 
-    // echo "Return code: $retVal<br>";
-    // echo "Output: $output<br>";
+   
 }
 
 // ADD MENU
 else if (isset($_POST['submitMenu'])) 
 {
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
     $query = escapeshellarg("menu");
     $rest_id = escapeshellarg($_POST[rest_id]);
     $cuisineType = escapeshellarg($_POST[cuisineType]);
@@ -386,62 +365,48 @@ else if (isset($_POST['submitMenu']))
     // VEGAN
     if (isset($_POST['isVegan'])) {
       $isVegan = $_POST['isVegan'];
-      // echo "Vegan selected: " . htmlspecialchars($isVegan);
       } else {
           echo "No dinner option selected.";
       }
     // VEGETARIAN
     if (isset($_POST['isVegetarian'])) {
       $isVegetarian = $_POST['isVegetarian'];
-      // echo "Vegetarian selected: " . htmlspecialchars($isVegetarian);
       } else {
           echo "No dinner option selected.";
       }
     // GLUTEN FREE
     if (isset($_POST['isGlutenFree'])) {
       $isGlutenFree = $_POST['isGlutenFree'];
-      // echo "Gluten free selected: " . htmlspecialchars($isGlutenFree);
       } else {
           echo "No dinner option selected.";
       }
     // PRICE RANGE
     if (isset($_POST['priceRange'])) {
       $priceRange = $_POST['priceRange'];
-      // echo "Vegan selected: " . htmlspecialchars($priceRange);
       } else {
           echo "No dinner option selected.";
       }
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' '. $rest_id . ' ' . $cuisineType . ' ' . $priceRange. ' ' .$isVegetarian. ' ' . $isGlutenFree. ' ' . $isVegan;
 
-    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
     // Run the command
     $output = system($command, $retVal);
 
-    // For debugging 
-    // echo "Return code: $retVal<br>";
-    // echo "Output: $output<br>";
 }
 
 // REMOVE RESTAURANT
 else if (isset($_POST['remove'])) 
 {
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
     $query = escapeshellarg("remove");
     $rest_id = escapeshellarg($_POST[rest_id]);
     $name = escapeshellarg($_POST[name]);
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' '. $rest_id . ' ' . $name;
 
-    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-
     // Run the command
     $output = system($command, $retVal);    
 
-    // For debugging 
-    // echo "Return code: $retVal<br>";
-    // echo "Output: $output<br>";
 }
 ?>
 

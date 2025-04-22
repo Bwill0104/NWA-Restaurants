@@ -231,12 +231,9 @@ h1{
 
         $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query . ' ' . $name;
 
-        // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
 
         $output = shell_exec($command);
 
-        // Debugging
-        // echo "Return code: $retVal<br>";
 
         // DISPLAYS THE RESTAURANTS WITH SEARCH NAME
         echo "<div style='margin-bottom: 30px'; class='table-wrapper'>";

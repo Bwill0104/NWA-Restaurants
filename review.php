@@ -112,7 +112,6 @@ if ($conn->connect_error) {
                     echo "<tr><th>Restaurant ID</th><th>Name</th><th>City</th><th>Adress</th><th>Rating</th></tr>";  // Customize columns
 
                     if ($result->num_rows > 0) {
-                        // Output each row
                         while($row = $result->fetch_assoc()) {
                             echo "<tr>";
                             echo "<td>" . $row["restaurantID"] . "</td>";  // Adjust column names
@@ -190,7 +189,6 @@ if ($conn->connect_error) {
                         document.getElementById("rating").value = n;
                     }
                     
-                    // To remove the pre-applied styling
                     function remove() {
                         let i = 0;
                         while (i < 5) {
@@ -215,8 +213,6 @@ if (isset($_POST['submit'])) {
 
   $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query . ' ' . $rest_id. ' ' . $rating;
 
-//   echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-
   $output = shell_exec($command);
 
 
@@ -232,18 +228,13 @@ if (isset($_POST['submit'])) {
       }
     $reviews[$rest_name][] = $cutomerReview;
     $_SESSION['reviews'] = $reviews;
-    // print_r($reviews[$rest_id]);
 
    
-    // session_unset();
-
 
     
 
   
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query . ' ' . $rest_id. ' ' . $rating;
-  
-  //   echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
   
     $output = shell_exec($command);
   

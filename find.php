@@ -18,7 +18,6 @@ h1{
 
   <?php if ($type === 'city'): ?>
           .city {
-          /* background-color: #555555; */
           display: block;
         }
           .rating {
@@ -90,21 +89,16 @@ h1{
 // FIND BY CITY
 if (isset($_POST['submitCity'])) 
 {
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
     $query = escapeshellarg("city");
     $city = escapeshellarg($_POST[city]);
 
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$city;
 
-    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-    system('chmod o+x odbc_query.exe');
-    system('chmod 755 odbc_query.exe');
 
     // Run the command
     $output = shell_exec($command);
     
     // Display results
-    // echo "Return code: $retVal<br>";
     echo "<div class='table-wrapper'>";
     echo "<table border='1'>";
     echo "$output<br>";
@@ -116,31 +110,23 @@ if (isset($_POST['submitCity']))
 
 if (isset($_POST['submitTime']) || isset($_POST['current'])) 
 {
-    // replace ' ' with '\ ' in the strings so they are treated as single command line args
     $query = escapeshellarg("time");
     $enteredTime = escapeshellarg($_POST[manualTime]);
     $currentTime = date("h:i A");
     if (!empty($_POST['hours'])) {
       $selectedHour = $_POST['hours']; // this is an array
 
-      // You can also implode them into a single string if needed
       $hourString = implode(",", $selectedHour);
-      // echo "All selected days: $daysString";
       } 
       
 
-
     $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$enteredTime. ' '.$hourString. ' ' .$currentTime;
 
-    // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-    system('chmod o+x odbc_query.exe');
-    system('chmod 755 odbc_query.exe');
 
     // Run the command
     $output = shell_exec($command);
     
     // Display results
-    // echo "Return code: $retVal<br>";
     echo "<div class='table-wrapper'>";
     echo "<table border='1'>";
     echo "$output<br>";

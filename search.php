@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['reviews'])) {
-    $_SESSION['reviews'] = []; // initialize as empty array
+    $_SESSION['reviews'] = []; 
 }
 
 $reviews = $_SESSION['reviews'];
@@ -14,7 +14,7 @@ $reviews = $_SESSION['reviews'];
 <style>
       .form-container {
   position: relative;
-  height: 600px; /* or whatever height you want */
+  height: 600px; 
 }
 
 .form-container > div {
@@ -25,7 +25,7 @@ $reviews = $_SESSION['reviews'];
 }
 
     .button-invert {
-        background-color: #ffb766; /* Green */
+        background-color: #ffb766; 
         border: none;
         color: #555555;
         padding: 8px 20px;
@@ -98,7 +98,6 @@ $reviews = $_SESSION['reviews'];
 
         if (isset($_POST['submit'])) 
         {
-            // replace ' ' with '\ ' in the strings so they are treated as single command line args
             $query = escapeshellarg("search");
             $meal = escapeshellarg($_POST[meal]);
             $vegetarian = escapeshellarg($_POST[vegetarian]);
@@ -108,14 +107,11 @@ $reviews = $_SESSION['reviews'];
 
             $command = '/home/bryanw/public_html/NWA-Restaurants/odbc_query.exe ' . $query. ' ' .$meal. ' ' .$vegetarian. ' ' .$gluten. ' ' .$vegan;
 
-            // echo '<p>Command: ' . htmlspecialchars($command) . '</p>';
-
 
             // Run the command
             $output = shell_exec($command);
             
             // Display results
-            // echo "Return code: $retVal<br>";
             echo "<div class='table-wrapper'>";
             echo "<table border='1'>";
             echo "$output<br>";
